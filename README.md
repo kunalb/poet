@@ -1,5 +1,5 @@
 # poet
-A light emacs theme that's well suited for modes using variable pitch: particularly org-mode and markdown-mode; or any mode that works well with `variable-pitch` mode. 
+A light emacs theme that's well suited for prose: particularly org-mode and markdown-mode; or any mode that works well with `variable-pitch` mode. 
 
 ## Motivation
 The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. For example, 
