@@ -207,6 +207,7 @@
         (org-meta-line
          :inherit fixed-pitch
          :foreground "#8D6E63")
+
         (org-document-info-keyword
          :inherit fixed-pitch
          :foreground "#795548")
@@ -252,6 +253,10 @@
          :foreground "#777777")
 
         (org-block-begin-line
+         :inherit fixed-pitch
+         :background "#d0d0d0")
+
+        (org-block-end-line
          :inherit fixed-pitch
          :background "#d0d0d0")
 
@@ -345,4 +350,4 @@
       (poet--disable))))
 
 ;;;###autoload
-(provide 'prolific-mode)
+(provide 'poet-mode)
