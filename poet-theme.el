@@ -317,16 +317,50 @@
         (markdown-inline-code-face
          :inherit fixed-pitch)
 
+        (markdown-metadata-key-face
+         :inherit fixed-pitch
+         :height 140
+         :foreground "#777777")
+
+        (markdown-metadata-value-face
+         :inherit fixed-pitch
+         :height 140
+         :foreground ,fg)
+
+        (markdown-language-keyword-face
+         :foreground "#7b1fa2")
+
+        (markdown-list-face
+         :inherit fixed-pitch
+         :foreground "#000000")
+
+        (markdown-code-face
+         :inherit fixed-pitch
+         :foreground ,fg
+         :background "#e0e0e0")
+
+        (markdown-pre-face
+         :inherit fixed-pitch
+         :color ,fg
+         :background "#e0e0e0")
+
+        (markdown-header-delimiter-face
+         :inherit fixed-pitch
+         :foreground "#8D6E63")
+
+        (markdown-header-rule-face
+         :inherit fixed-pitch
+         :foreground "#8D6E63")
+
         ,@(poet--numbered-faces
            "markdown-header-face-" 1 8
            (lambda (index)
              (list
               ':foreground header-color
               ':inherit 'default
-              ':underline '(:color "#aaaaaa")
               ':height (max
                         (+ 20 base-height)
-                        (- 260 (* 20 index))))))))
+                        (- max-heading-height (* 20 index))))))))
 
      (imenu-list
       `(,@(poet--numbered-faces
