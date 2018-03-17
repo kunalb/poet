@@ -1,15 +1,40 @@
+;;; poet-theme.el --- A prose friendly theme.
+
+;; Copyright 2018- Kunal Bhalla
+
+;; Author: Kunal Bhalla <bhalla.kunal@gmail.com>
+;; URL: https://github.com/kunalb/poet/
+;; Version: 1.0
+
+;;; Commentary:
+
+;; Emacs has very good support for multiple fonts in a single
+;; file.  Poet uses this support to make it much more convenient to
+;; write prose within Emacs, with particular attention paid to
+;; org-mode and markdown-mode.  Code blocks, tables, etc are
+;; formatted in monospace text with the appropriate backgrounds.
+
+
+;;; Code:
+
 (deftheme poet
-  "A variable-pitch-mode friendly theme for editing text in org.")
+  "A variable-pitch-mode friendly theme for editing text in org and
+  markdown.")
 
 ;;; Utility functions
 
 ;; Allow setting faces as (face :property value ...) directly
 ;; This theme is defined for the GUI only.
 (defun poet--flatten (face-details)
+  "Rewrite FACE-DETAILS to be usable with `custom-theme-set-faces'.
+
+  This basically ignores Emacs's support for different types of
+  terminals or backgrounds and defaults everything to the provided
+  information."
   `(,(car face-details) ((t ,(cdr face-details)))))
-(poet--flatten '(default :background "#ffffff"))
 
 (defun poet--create-faces (faces)
+  "Add FACES to the theme definition."
     (apply
      'custom-theme-set-faces
      (cons 'poet
@@ -20,6 +45,12 @@
                              range-start
                              range-end
                              callback)
+  "Generate numbered faces: useful for defining headers, etc.
+
+  Faces are generated as PREFIX<number> with the <number> ranging from
+  RANGE-START to RANGE-END.  CALLBACK can be a plain string or a
+  function that accepts the current <number> to generate the
+  corresponding faces."
   (mapcar
    (lambda (iter)
      `(,(intern (concat prefix (number-to-string iter)))
@@ -36,6 +67,7 @@
      (sans-serif-family "Helvetica Neue")
      (monospace-family "Fira Code")
 
+     (max-heading-height 240)
      (base-height 160)
      (monospace-height 130)
 
@@ -50,7 +82,7 @@
      (meta "#4e342e")
      (link "#303F9F")
 
-     (header-color "#970b0b")
+     (header-color "#770b0b")
 
      (basic
       `((fixed-pitch
@@ -138,9 +170,9 @@
       `((mode-line
          :inherit fixed-pitch
          :foreground "#111111"
-         :background "#dedede"
+         :background "#cdcdcd"
          :box (:line-width 3
-               :color "#dedede"))
+               :color "#cdcdcd"))
         (header-line
          :inherit mode-line)
         (mode-line-buffer-id
@@ -151,9 +183,9 @@
          :background "#ffffff")
         (mode-line-inactive
          :inherit mode-line
-         :background "#cccccc"
-         :foreground "#777777"
-         :box (:color "#cccccc"
+         :background "#bbbbbb"
+         :foreground "#555555"
+         :box (:color "#bbbbbb"
                :line-width 3))))
 
      (syntax
@@ -199,10 +231,9 @@
              (list
               ':inherit 'default
               ':foreground header-color
-              ':underline (list ':color header-color)
               ':height (max
                         (+ 20 base-height)
-                        (- 260 (* 20 index))))))
+                        (- max-heading-height (* 20 index))))))
 
         (org-meta-line
          :inherit fixed-pitch
@@ -224,7 +255,8 @@
 
         (org-quote
          :inherit default
-         :foreground "#4A148C")
+         :foreground "#4A148C"
+         :background "#e0e0e0")
 
         (org-hide
          :foreground ,bg)
@@ -320,34 +352,39 @@
 (provide-theme 'poet)
 
 (defun poet--enable ()
-  (linum-mode 0)
-  (setq left-margin-width 5)
-  (setq right-margin-width 5)
-  (set-window-buffer (get-buffer-window) (window-buffer))
+  "Opinionated behavior for poet mode to make text editing more pleasant."
+  (variable-pitch-mode 1)
+  (set-window-margins (get-buffer-window) 5 5)
+  (blink-cursor-mode 0)
   (setq line-spacing .2))
 
 (defun poet--disable ()
-  (setq left-margin-width 0)
-  (setq right-margin-width 0)
-  (set-window-buffer (get-buffer-window) (window-buffer))
+  "Disable settings enabled by `poet-mode'."
   (variable-pitch-mode 0)
+  (set-window-margins nil 0 0)
+  (set-window-buffer nil (window-buffer))
+  (blink-cursor-mode 1)
   (setq line-spacing 0))
 
+;;; Sets up several other additional modes with poet mode to make text
+;;; more convenient.
 (add-hook 'poet-mode-hook
           (lambda ()
-            (variable-pitch-mode 1)
-            (flyspell-mode 1)
-            (typo-mode 1)
-            (blink-cursor-mode 0)))
+            (if (boundp 'linum-mode)
+                (linum-mode 0))
+            (if (boundp 'flyspell-mode)
+                (flyspell-mode 1))
+            (if (boundp 'typo-mode)
+                (typo-mode 1))))
 
 ;;;###autoload
 (define-minor-mode poet-mode
-  "Another opinionated minor mode to help you write."
-  :lighter " prolific"
-  (progn
-    (if poet-mode
-        (poet--enable)
-      (poet--disable))))
+  "Another opinionated minor mode to help you write and focus."
+  :lighter " poet"
+  (if poet-mode
+      (poet--enable)
+    (poet--disable)))
 
 ;;;###autoload
 (provide 'poet-mode)
+;;; poet-theme.el ends here
