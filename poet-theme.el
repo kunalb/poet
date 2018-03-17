@@ -197,7 +197,7 @@
          :inherit fixed-pitch)
         (font-lock-string-face
          :inherit fixed-pitch
-         :foreground "#7B1FA2")
+         :foreground "#6C3082")
         (font-lock-function-name-face
          :inherit fixed-pitch
          :foreground "#388E3C")
@@ -352,6 +352,10 @@
          :inherit fixed-pitch
          :foreground "#8D6E63")
 
+        (markdown-url-face
+         :inherit fixed-pitch
+         :foreground "#444444")
+
         ,@(poet--numbered-faces
            "markdown-header-face-" 1 8
            (lambda (index)
@@ -396,7 +400,6 @@
   "Disable settings enabled by `poet-mode'."
   (variable-pitch-mode 0)
   (set-window-margins nil 0 0)
-  (set-window-buffer nil (window-buffer))
   (blink-cursor-mode 1)
   (setq line-spacing 0))
 
