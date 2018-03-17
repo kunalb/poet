@@ -397,7 +397,7 @@
   (setq line-spacing .2))
 
 (defun poet--disable ()
-  "Disable settings enabled by `poet-mode'."
+  "Disable settings enabled by function `poet-mode'."
   (variable-pitch-mode 0)
   (set-window-margins nil 0 0)
   (blink-cursor-mode 1)
