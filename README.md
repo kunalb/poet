@@ -6,11 +6,38 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 
 ![Screenshot](https://github.com/kunalb/poet/raw/master/screenshot.png)
 
+## Set up
+- **Installation**: For now, you can start by downloading the theme to your `custom-theme-directory` which defaults to `~/emacs.d`.
+- **Variable-pitch-mode**: Adding variable pitch mode to text modes will help in rendering mixed fonts every time you edit  markdown, org-mode, etc.
+```
+    (add-hook 'text-mode-hook
+               (lambda ()
+                (variable-pitch-mode 1))
+```
+- **Custom fonts**: Choose your fonts/font sizes before loading the theme with
+```
+    (set-face-attribute 'default nil :height 130)
+    (set-face-attribute 'fixed-pitch nil :family "Fira Code")
+    (set-face-attribute 'variable-pitch nil :family "Georgia")
+```
+- **Additional useful modes**: Some modes I like to enable/disable
+```
+    (olivetti-mode 1)        ;; Centers text in the buffer
+    (flyspell-mode 1))       ;; Catch Spelling mistakes
+    (typo-mode 1))           ;; Good for symbols like em-dash
+
+    (blink-cursor-mode 0)    ;; Reduce visual noise
+    (linum-mode 0)           ;; No line numbers for prose
+
+    (setq org-bullets-bullet-list
+        '("◉" "○"))
+    (org-bullets 1)
+```
+
 ## Warning
 This is still a very early version of the theme, and there are several caveats:
 - Exclusively aimed at graphical emacs
 - Not very widely tested
-- Font choices are hard-coded into the theme; Georgia for variable pitch text and Firacode for monospace
 - Not published to Melpa yet
 
 ## Next Steps
