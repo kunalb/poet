@@ -1,0 +1,30 @@
+#+TITLE: Test Org Document
+#+DATE: <2018-03-18 Sun>
+
+* With Features                                                    :tag:
+** Lots of different features
+Just testing out different behaviours in org mode.
+
+#+BEGIN_SRC elisp
+(like code)
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+And examples
+#+END_EXAMPLE
+
+* TODO And plain lists
+- Some lists are nice
+
+* DONE And emphasis
+- [ ] With a *checklist*
+- [X] And /italics/
+- [ ] And _underlines_
+- [ ] And [[https://github.com/kunalb/poet][links]]
+
+* [#A] And tables
+| Test |  Table |
+|------+--------|
+| With | Values |
+|    1 |      2 |
+|    3 |      4 |
