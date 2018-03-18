@@ -63,10 +63,6 @@
     (;; Theme design
 
      ;; Typography
-     (serif-family "Georgia")
-     (sans-serif-family "Helvetica Neue")
-     (monospace-family "Fira Code")
-
      (max-heading-height 240)
      (base-height 160)
      (monospace-height 130)
@@ -86,10 +82,8 @@
 
      (basic
       `((fixed-pitch
-         :family ,monospace-family
          :height ,monospace-height)
         (variable-pitch
-         :family ,serif-family
          :height ,base-height)
         (default
           :inherit fixed-pitch
@@ -384,50 +378,15 @@
 
 (custom-theme-set-variables
  'poet
+ '(line-spacing .2)
  '(fci-rule-color "#dedede"))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path)
            load-file-name)
-  ;; Add theme folder to `custom-theme-load-path' when installing over MELPA.
   (add-to-list 'custom-theme-load-path
-               (file-name-as-directory (file-name-directory load-file-name))))
+               (file-name-as-directory
+                (file-name-directory load-file-name))))
 
 (provide-theme 'poet)
-
-(defun poet--enable ()
-  "Opinionated behavior for poet mode to make text editing more pleasant."
-  (variable-pitch-mode 1)
-  (set-window-margins (get-buffer-window) 5 5)
-  (blink-cursor-mode 0)
-  (setq line-spacing .2))
-
-(defun poet--disable ()
-  "Disable settings enabled by function `poet-mode'."
-  (variable-pitch-mode 0)
-  (set-window-margins nil 0 0)
-  (blink-cursor-mode 1)
-  (setq line-spacing 0))
-
-;;; Sets up several other additional modes with poet mode to make text
-;;; more convenient.
-(add-hook 'poet-mode-hook
-          (lambda ()
-            (if (boundp 'linum-mode)
-                (linum-mode 0))
-            (if (boundp 'flyspell-mode)
-                (flyspell-mode 1))
-            (if (boundp 'typo-mode)
-                (typo-mode 1))))
-
-;;;###autoload
-(define-minor-mode poet-mode
-  "Another opinionated minor mode to help you write and focus."
-  :lighter " poet"
-  (if poet-mode
-      (poet--enable)
-    (poet--disable)))
-
-;;;###autoload
-(provide 'poet-mode)
 ;;; poet-theme.el ends here
