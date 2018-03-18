@@ -62,10 +62,16 @@
 (let*
     (;; Theme design
 
+     ;; Get default height
+     (default-height (face-attribute 'default :height))
+     ;; Get original monospace font to preserve it across a
+     ;; variable pitch change.
+     (default-monospace (face-attribute 'fixed-pitch :family))
+
      ;; Typography
-     (max-heading-height 240)
-     (base-height 160)
-     (monospace-height 130)
+     (max-heading-height 2.0)
+     (base-height 1.33)
+     (monospace-height default-height)
 
      ;; Colors
      (bg "#e1d9c2")
@@ -82,14 +88,13 @@
 
      (basic
       `((fixed-pitch
+         :family ,default-monospace
          :height ,monospace-height)
         (variable-pitch
          :height ,base-height)
         (default
-          :inherit fixed-pitch
           :background ,bg
-          :foreground ,fg
-          :height ,monospace-height)
+          :foreground ,fg)
         (italic
          :foreground "#222222"
          :slant italic)
@@ -226,8 +231,8 @@
               ':inherit 'default
               ':foreground header-color
               ':height (max
-                        (+ 20 base-height)
-                        (- max-heading-height (* 20 index))))))
+                        (+ .15 base-height)
+                        (- max-heading-height (* .15 index))))))
 
         (org-meta-line
          :inherit fixed-pitch
@@ -357,8 +362,8 @@
               ':foreground header-color
               ':inherit 'default
               ':height (max
-                        (+ 20 base-height)
-                        (- max-heading-height (* 20 index))))))))
+                        (+ .15 base-height)
+                        (- max-heading-height (* .15 index))))))))
 
      (imenu-list
       `(,@(poet--numbered-faces
