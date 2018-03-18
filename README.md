@@ -54,3 +54,9 @@ This is still a very early version of the theme, and there are several caveats:
 ---
 - [ ] Create a poet-dark mode with a yellow/white/dark gray scheme.
 - [ ] Publish v3 to Melpa.
+
+## More Screenshots
+![Org](https://github.com/kunalb/poet/raw/master/org.png)
+![Markdown 1](https://github.com/kunalb/poet/raw/master/md1.png)
+![Markdown 2](https://github.com/kunalb/poet/raw/master/md2.png)
+
