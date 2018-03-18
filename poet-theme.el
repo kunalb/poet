@@ -94,7 +94,7 @@
      (default-monospace (face-attribute 'fixed-pitch :family))
 
      ;; Typography
-     (max-heading-height 1.6)
+     (max-heading-height 1.7)
      (base-height 1.33)
      (monospace-height default-height)
 
@@ -256,8 +256,8 @@
               ':inherit 'default
               ':foreground header-color
               ':height (max
-                        (+ .1 base-height)
-                        (- max-heading-height (* .1 index))))))
+                        (+ .08 base-height)
+                        (- max-heading-height (* .08 index))))))
 
         (org-meta-line
          :inherit fixed-pitch
@@ -387,8 +387,8 @@
               ':foreground header-color
               ':inherit 'default
               ':height (max
-                        (+ .1 base-height)
-                        (- max-heading-height (* .1 index))))))))
+                        (+ .08 base-height)
+                        (- max-heading-height (* .08 index))))))))
 
      (imenu-list
       `(,@(poet--numbered-faces
