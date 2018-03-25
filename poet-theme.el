@@ -17,7 +17,7 @@
 ;; Recommended customizations for using this theme
 ;;
 ;; - Set up the base fonts you'd like to use in Emacs before loading Poet
-;;     (set-face-attribute 'default nil :height 130)
+;;     (set-face-attribute 'default nil :family "Fira Code" :height 130)
 ;;     (set-face-attribute 'fixed-pitch nil :family "Fira Code")
 ;;     (set-face-attribute 'variable-pitch nil :family "Georgia")
 ;;   On loading this theme captures the default and treats that for fixed-pitch
@@ -88,9 +88,7 @@
     (;; Theme design
 
      ;; Get default height
-     (default-height (face-attribute 'default :height))
-     ;; Get original monospace font to preserve it across a
-     ;; variable pitch change.
+     (default-height (face-attribute 'fixed-pitch :height nil 'default))
      (default-monospace (face-attribute 'fixed-pitch :family))
 
      ;; Typography
@@ -112,11 +110,9 @@
      (header-color "#770b0b")
 
      (basic
-      `((fixed-pitch
-         :family ,default-monospace
-         :height ,monospace-height)
+      `(
         (variable-pitch
-         :height ,base-height)
+          :height ,base-height)
         (default
           :background ,bg
           :foreground ,fg)
@@ -213,7 +209,9 @@
                :line-width 3))))
 
      (syntax
-      `((font-lock-comment-face
+      `((error
+         :inherit fixed-pitch)
+        (font-lock-comment-face
          :foreground ,muted
          :inherit fixed-pitch)
         (font-lock-builtin-face
@@ -229,21 +227,28 @@
          :inherit fixed-pitch
          :foreground "#bf360c")
         (font-lock-comment-delimiter-face
+         :inherit fixed-pitch
          :inherit font-lock-comment-face)
         (font-lock-constant-face
+         :inherit fixed-pitch
          :foreground "#0288D1")
         (font-lock-doc-face
+         :inherit fixed-pitch
          :inherit font-lock-string-face)
         (font-lock-preprocessor-face
+         :inherit fixed-pitch
          :inherit font-lock-builtin-face)
         (font-lock-regexp-grouping-backslash
+         :inherit fixed-pitch
          :inherit bold)
         (font-lock-regexp-grouping-construct
+         :inherit fixed-pitch
          :inherit bold)
         (font-lock-type-face
          :foreground "#3f51b5"
          :inherit fixed-pitch)
         (font-lock-variable-name-face
+         :inherit fixed-pitch
          :foreground "#455A64")
         (font-lock-warning-face
          :inherit error)))
