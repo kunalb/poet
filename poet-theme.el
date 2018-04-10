@@ -99,6 +99,7 @@
      ;; Colors
      (bg "#e1d9c2")
      (fg "#444444")
+     (sep "#eeeeee")
 
      (bg-highlight "#fff8e1")
 
@@ -171,8 +172,12 @@
          :inherit region)
 
         (window-divider
-         :background "#ffffff"
-         :foreground "#ffffff")))
+         :background ,sep
+         :foreground ,sep)
+
+        (vertical-border
+         :background ,sep
+         :foreground ,sep)))
 
      (evil
       `((evil-ex-substitute-replacement
@@ -190,9 +195,10 @@
       `((mode-line
          :inherit fixed-pitch
          :foreground "#111111"
-         :background "#cdcdcd"
+         :background ,bg
+         :overline ,sep
          :box (:line-width 3
-               :color "#cdcdcd"))
+               :color ,bg))
         (header-line
          :inherit mode-line)
         (mode-line-buffer-id
@@ -203,9 +209,9 @@
          :background "#ffffff")
         (mode-line-inactive
          :inherit mode-line
-         :background "#bbbbbb"
-         :foreground "#555555"
-         :box (:color "#bbbbbb"
+         :background ,bg
+         :foreground "#888888"
+         :box (:color ,bg
                :line-width 3))))
 
      (syntax
