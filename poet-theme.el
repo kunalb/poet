@@ -84,6 +84,10 @@
             callback)))
    (number-sequence range-start range-end)))
 
+(defvar poet--base-height
+  (face-attribute 'fixed-pitch :height nil 'default)
+  "The base size to use: specified as a defvar to stay consistent")
+
 (let*
     (;; Theme design
 
@@ -94,7 +98,7 @@
      ;; Typography
      (max-heading-height 1.8)
      (base-height 1.23)
-     (monospace-height default-height)
+     (monospace-height poet--base-height)
 
      ;; Colors
      (bg "#e1d9c2")
@@ -111,8 +115,7 @@
      (header-color "#770b0b")
 
      (basic
-      `(
-        (variable-pitch
+      `((variable-pitch
           :height ,base-height)
         (default
           :background ,bg
