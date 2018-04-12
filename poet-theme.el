@@ -94,10 +94,6 @@
 (let*
     (;; Theme design
 
-     ;; Get default height
-     (default-height (face-attribute 'fixed-pitch :height nil 'default))
-     (default-monospace (face-attribute 'fixed-pitch :family))
-
      ;; Typography
      (max-heading-height (poet--height 1.8))
      (base-height (poet--height 1.23))
@@ -119,6 +115,7 @@
 
      (basic
       `((variable-pitch
+          :family ,(face-attribute 'variable-pitch :family)
           :height ,base-height)
         (default
           :background ,bg
