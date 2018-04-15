@@ -297,7 +297,11 @@
          :background "#e0e0e0")
 
         (org-hide
+         :inherit fixed-pitch
          :foreground ,bg)
+
+        (org-indent
+         :inherit org-hide)
 
         (org-document-title
          :inherit default
