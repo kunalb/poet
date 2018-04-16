@@ -7,7 +7,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 ![Screenshot](https://github.com/kunalb/poet/raw/master/screenshot.png)
 
 ## Set up
-- **Installation**: 
+- **Installation**:
   - **Melpa**: Make sure [melpa is in your package archives list](https://melpa.org/#/getting-started), and <kbd>M-x</kbd> `package-install melpa`
   - **Manual**: Download the theme to your `custom-theme-directory` which defaults to `~/emacs.d`.
 - **Variable-pitch-mode**: Adding variable pitch mode to text modes will help in rendering mixed fonts every time you edit  markdown, org-mode, etc.
@@ -18,15 +18,15 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 ```
 - **Custom fonts**: Choose your fonts/font sizes before loading the theme with
 ```
-    (set-face-attribute 'default nil :height 130)
-    (set-face-attribute 'fixed-pitch nil :family "Fira Code")
-    (set-face-attribute 'variable-pitch nil :family "Georgia")
+    (set-face-attribute 'default nil :family "Iosevka" :height 130)
+    (set-face-attribute 'fixed-pitch nil :family "Iosevka")
+    (set-face-attribute 'variable-pitch nil :family "Baskerville")
 ```
 - **Additional useful modes**: Some modes I like to enable/disable
 ```
     (olivetti-mode 1)        ;; Centers text in the buffer
-    (flyspell-mode 1))       ;; Catch Spelling mistakes
-    (typo-mode 1))           ;; Good for symbols like em-dash
+    (flyspell-mode 1)        ;; Catch Spelling mistakes
+    (typo-mode 1)            ;; Good for symbols like em-dash
 
     (blink-cursor-mode 0)    ;; Reduce visual noise
     (linum-mode 0)           ;; No line numbers for prose
@@ -37,9 +37,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 ```
 
 ## Warning
-This is still a very early version of the theme, and there are several caveats:
 - Exclusively aimed at graphical emacs
-- Not very widely tested
 
 ## Next Steps
 (No fixed timelines for these, depends on my time and motivation)
@@ -48,14 +46,13 @@ This is still a very early version of the theme, and there are several caveats:
 - [x] Add more screenshots showing off different modes (particularly markdown)
 - [ ] Add support for customizing font faces
 - [ ] Document support for additional modes.
-- [ ] Evaluate & test github flavoured markdown in markdown-mode.
+- [x] Evaluate & test github flavoured markdown in markdown-mode.
 - [ ] Publish v2 to Melpa
 ---
-- [ ] Create a poet-dark mode with a yellow/white/dark gray scheme.
+- [ ] Create a poet-dark mode with a yellow/white/dark brown  scheme.
 - [ ] Publish v3 to Melpa.
 
 ## More Screenshots
 ![Org](https://github.com/kunalb/poet/raw/master/org.png)
 ![Markdown 1](https://github.com/kunalb/poet/raw/master/md1.png)
 ![Markdown 2](https://github.com/kunalb/poet/raw/master/md2.png)
-
