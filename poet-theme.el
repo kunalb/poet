@@ -292,6 +292,7 @@
         (org-table
          :inherit fixed-pitch
          :background "#e0e0e0")
+
         (org-formula
          :inherit org-table
          :height ,monospace-height)
@@ -308,6 +309,11 @@
         (org-indent
          :inherit org-hide)
 
+        (org-date
+         :inherit fixed-pitch
+         :foreground "#444444"
+         :underline nil)
+
         (org-document-title
          :inherit default
          :foreground "#B71C1C"
@@ -319,9 +325,16 @@
          :weight bold
          :foreground "#aaaaaa")
 
+        (org-scheduled
+         :foreground "#333333")
+
+        (org-scheduled-today
+         :foreground "#111111")
+
         (org-done
          :inherit fixed-pitch
          :foreground "#388E3C")
+
         (org-todo
          :inherit fixed-pitch
          :foreground "#BF360C")
