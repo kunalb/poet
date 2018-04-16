@@ -91,6 +91,13 @@
 (defun poet--height (multiplier)
   (truncate (* multiplier poet--monospace-height)))
 
+;; TODO Allow choosing heading flattening height
+(defun poet--header-height (index base-height max-height)
+  "Use a large font only for the first heading, and then the same size"
+  (if (= index 1)
+      (+ (poet--height .2) base-height)
+    base-height))
+
 (let*
     (;; Theme design
 
@@ -269,9 +276,7 @@
              (list
               ':inherit 'default
               ':foreground header-color
-              ':height (max
-                        (+ (poet--height .08) base-height)
-                        (- max-heading-height (* (poet--height .2) index))))))
+              ':height (poet--header-height index base-height max-heading-height))))
 
         (org-meta-line
          :inherit fixed-pitch
