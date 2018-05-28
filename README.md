@@ -22,6 +22,11 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
     (set-face-attribute 'fixed-pitch nil :family "Iosevka")
     (set-face-attribute 'variable-pitch nil :family "Baskerville")
 ```
+- **Mac OSX Title Bar**: Only for **Emacs 26.1**
+```
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . light))
+```
 - **Additional useful modes**: Some modes I like to enable/disable
 ```
     (olivetti-mode 1)        ;; Centers text in the buffer

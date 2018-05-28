@@ -14,6 +14,9 @@ And examples
 #+END_EXAMPLE
 
 * TODO And plain lists
+** TODO Something more
+** DONE Something else
+CLOSED: [2018-04-18 Wed 23:46]
 - Some lists are nice
 
 * DONE And emphasis
