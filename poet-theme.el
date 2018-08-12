@@ -218,6 +218,8 @@
         (header-line
          :overline nil
          :background "#e0e0e0"
+         :box (:line-width 3
+               :color "#e0e0e0")
          :underline ,sep
          :inherit mode-line)
         (mode-line-buffer-id
