@@ -86,14 +86,19 @@
 
 (defvar poet--monospace-height
   (face-attribute 'fixed-pitch :height nil 'default)
-  "The base size to use: specified as a defvar to stay consistent")
+  "The base size to use: specified as a defvar to stay consistent.")
 
 (defun poet--height (multiplier)
+  "Scale up the height with MULTIPLIER and truncate."
   (truncate (* multiplier poet--monospace-height)))
 
 ;; TODO Allow choosing heading flattening height
 (defun poet--header-height (index base-height max-height)
-  "Use a large font only for the first heading, and then the same size"
+  "Calculates appropriate heading heights.
+
+  INDEX defines the current heading index, starting at 1;
+  BASE-HEIGHT is the default text size, and MAX-HEIGHT is
+  the maximum height that can be displayed."
   (if (= index 1)
       (+ (poet--height .2) base-height)
     base-height))
@@ -131,7 +136,8 @@
          :foreground "#222222"
          :slant italic)
         (highlight
-         :background ,highlight)
+         :background ,highlight
+         :overline ,highlight)
         (region
          :background ,bg-highlight)
         (fringe
@@ -357,7 +363,36 @@
 
         (org-block
          :background "#e0e0e0"
-         :inherit fixed-pitch)))
+         :inherit fixed-pitch)
+
+        (org-priority
+         :inherit fixed-pitch
+         :weight normal)
+
+        (org-agenda-structure
+         :foreground "#555555"
+         :background "#e0e0e0"
+         :overline "#e0e0e0"
+         :underline "#e0e0e0")
+
+        (org-agenda-date-weekend
+         :inherit org-agenda-structure)
+
+        (org-agenda-date-today
+         :foreground "#000000"
+         :overline "#eeeeee"
+         :background "#eeeeee"
+         :underline "#eeeeee")
+
+        (org-special-keyword
+         :inherit fixed-pitch
+         :foreground "#777777")
+
+        (org-scheduled-previously
+         :foreground "#222222")
+
+        (org-agenda-done
+         :foreground "#777777")))
 
      (hl-line
       `((hl-line
