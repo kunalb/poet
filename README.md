@@ -41,6 +41,9 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
     (org-bullets 1)
 ```
 
+## [Reddit](https://www.reddit.com/r/emacs/comments/9e01wf/share_your_modern_emacs/e5lpfmy/) reviews poet
+![Reddit](https://github.com/kunalb/poet/raw/master/reddit.png)
+
 ## Warning
 - Exclusively aimed at graphical emacs
 
