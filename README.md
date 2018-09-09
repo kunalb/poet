@@ -8,7 +8,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 
 ## Set up
 - **Installation**:
-  - **Melpa**: Make sure [melpa is in your package archives list](https://melpa.org/#/getting-started), and <kbd>M-x</kbd> `package-install melpa`
+  - **Melpa**: Make sure [melpa is in your package archives list](https://melpa.org/#/getting-started), and <kbd>M-x</kbd> `package-install poet-theme`
   - **Manual**: Download the theme to your `custom-theme-directory` which defaults to `~/emacs.d`.
 - **Variable-pitch-mode**: Adding variable pitch mode to text modes will help in rendering mixed fonts every time you edit  markdown, org-mode, etc.
 ```
