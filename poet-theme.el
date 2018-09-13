@@ -137,7 +137,7 @@
          :slant italic)
         (highlight
          :background ,highlight
-         :overline ,highlight)
+         :overline nil)
         (region
          :background ,bg-highlight)
         (fringe
