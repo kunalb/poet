@@ -45,12 +45,12 @@
 (deftheme poet-dark
   "A dark prose friendly theme.")
 
-(let (('fg "#eeeeee")
-      ('bg "#111111"))
- (custom-theme-set-faces 'dark-poet
-  `(default ((t (:foreground ,'fg :background ,'bg))))
-  `(fixed-width ((t (:foreground ,'fg)))))
- (custom-theme-set-variables 'dark-poet
+(let ((fg "#eeeeee")
+      (bg "#111111"))
+ (custom-theme-set-faces 'poet-dark
+  `(default ((t (:foreground ,fg :background ,bg))))
+  `(fixed-width ((t (:foreground ,fg)))))
+ (custom-theme-set-variables 'poet-dark
   '(line-spacing .2)
   `(fci-rule-color ,'fci)))
 

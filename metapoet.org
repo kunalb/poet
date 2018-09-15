@@ -65,7 +65,7 @@ code would be so much better for this.
  "(let ("
  (mapconcat
   (lambda (x)
-    (concat "('" (car x) " \"" (cadr x) "\")"))
+    (concat "(" (car x) " \"" (cadr x) "\")"))
   (cdr palette)
   "\n      ")
  ")\n"
@@ -78,7 +78,7 @@ code would be so much better for this.
              (lambda (y)
                (let ((ys (symbol-name y)))
                  (if (string-prefix-p "@" ys)
-                     (concat ",'" (substring ys 1))
+                     (concat "," (substring ys 1))
                    y)))
              (cdr x))))
   structure
@@ -124,7 +124,7 @@ code would be so much better for this.
 (deftheme poet-dark
   "A dark prose friendly theme.")
 
-<<theme-definition(palette=dark-poet-palette, theme-name="dark-poet")>>
+<<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
 
 <<theme-postface>>
 
