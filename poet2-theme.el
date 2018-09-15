@@ -1,4 +1,4 @@
-;;; %theme%-theme.el --- %tagline%
+;;; poet-dark-theme.el -- A theme for prose.
 
 ;; Copyright 2018-now Kunal Bhalla
 
@@ -30,8 +30,8 @@
 ;;
 ;; - Some other modes I like to enable/disable
 ;;     (olivetti-mode 1)        ;; Centers text in the buffer
-;;     (flyspell-mode 1))       ;; Catch Spelling mistakes
-;;     (typo-mode 1))           ;; Good for symbols like em-dash
+;;     (flyspell-mode 1)        ;; Catch Spelling mistakes
+;;     (typo-mode 1)            ;; Good for symbols like em-dash
 ;;     (blink-cursor-mode 0)    ;; Reduce visual noise
 ;;     (linum-mode 0)           ;; No line numbers for prose
 ;;
@@ -40,21 +40,7 @@
 ;;         '("◉" "○"))
 ;;     (org-bullets 1)
 
-;;; Code:
-
-(deftheme %theme%
-  "%tagline%")
-
-;;; Utility functions
-
-(custom-theme-set-faces
- '%theme%
- %faces%)
-
-(custom-theme-set-variables
- '%theme%
- '(line-spacing .2)
- '(fci-rule-color "%fci-rule-color%"))
+;;; Code
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path)
@@ -63,5 +49,4 @@
                (file-name-as-directory
                 (file-name-directory load-file-name))))
 
-(provide-theme '%theme%)
-;;; %theme%-theme.el ends here
+(provide-theme 'poet)

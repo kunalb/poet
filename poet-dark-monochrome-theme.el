@@ -1,4 +1,4 @@
-;;; dark-poet-theme.el --- A dark prose friendly theme.
+;;; poet-dark-theme.el -- A dark monochrome theme for prose.
 
 ;; Copyright 2018-now Kunal Bhalla
 
@@ -30,8 +30,8 @@
 ;;
 ;; - Some other modes I like to enable/disable
 ;;     (olivetti-mode 1)        ;; Centers text in the buffer
-;;     (flyspell-mode 1))       ;; Catch Spelling mistakes
-;;     (typo-mode 1))           ;; Good for symbols like em-dash
+;;     (flyspell-mode 1)        ;; Catch Spelling mistakes
+;;     (typo-mode 1)            ;; Good for symbols like em-dash
 ;;     (blink-cursor-mode 0)    ;; Reduce visual noise
 ;;     (linum-mode 0)           ;; No line numbers for prose
 ;;
@@ -40,25 +40,8 @@
 ;;         '("◉" "○"))
 ;;     (org-bullets 1)
 
-;;; Code:
+;;; Code
 
-(deftheme dark-poet
-  "A dark prose friendly theme.")
-
-;;; Utility functions
-
-(custom-theme-set-faces
- 'dark-poet
- '(default ((t (:foreground "#ffffff" :background "#4B4036"))))
- '(fringe ((t (:background nil))))
- '(mode-line ((t (:foreground "#eeeeee" :overline "#8c8771"))))
- '(vertical-border ((t (:foreground "#8c8771" :background "#8c8771"))))
- '(window-divider ((t (:foreground "#8c8771" :background "#8c8771")))))
-
-(custom-theme-set-variables
- 'dark-poet
- '(line-spacing .2)
- '(fci-rule-color "#111111"))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path)
@@ -67,5 +50,4 @@
                (file-name-as-directory
                 (file-name-directory load-file-name))))
 
-(provide-theme 'dark-poet)
-;;; dark-poet-theme.el ends here
+(provide-theme 'poet-dark-monochrome)
