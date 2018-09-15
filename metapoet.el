@@ -84,6 +84,19 @@
   (face-attribute 'fixed-pitch :height nil 'default)
   "The base size to use: specified as a defvar to stay consistent.")
 
+(defun metapoet--create-face-specs (al)
+  (let ((pt (lambda (x) (alist-get x al))))
+  `((default
+      :foreground ,(funcall pt 'fg)
+      :background ,(funcall pt 'bg))
+    (vertical-border :foreground "#8c8771"
+                     :background "#8c8771")
+    (window-divider :foreground "#8c8771"
+                    :background "#8c8771")
+    (mode-line :foreground "#eeeeee"
+               :overline "#8c8771")
+    (fringe :background nil))))
+
 (let* (
        (structural-faces
         '((mode-line :inherit fixed-pitch
@@ -104,7 +117,9 @@
         `((theme . "dark-poet")
           (tagline . "A dark prose friendly theme.")
           (faces . ,(metapoet--make-faces
-                     (metapoet--merge-faces dark-poet-faces structural-faces)))
+                     (metapoet--create-face-specs
+                      '((fg . "#ffffff")
+                        (bg . "#8c8771")))))
           (fci-rule-color . "#111111"))))
   (metapoet--create 'dark-poet dark-poet-params))
 
