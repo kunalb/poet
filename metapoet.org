@@ -7,8 +7,54 @@ code would be so much better for this.
 * Structure
 #+NAME: structure
 #+BEGIN_SRC emacs-lisp
+;; Basics
 `((default :foreground @fg :background @bg)
-  (fixed-width :foreground @fg))
+  (italic :foreground @emph)
+  (fringe :background @bg)
+  (button :inherit default :foreground @button)
+  (link :foreground @link :underline (:color @link-underline :style line))
+  (link-visited :inherit link :underline (:color @vlink-underline :style line))
+  (escape-glyph :foreground @glyph)
+  (highlight :background @hlt :overline nil)
+  (lazy-highlight :background @bg-hlt)
+  (region :background @bg-hlt)
+  (cursor :background @cursor)
+  (show-paren-match :foreground @paren-match-fg :background @paren-match-bg)
+  (isearch :foreground @search-fg :background @search-bg)
+  (isearch-fail :background @search-fail-bg)
+  (next-error :background @bg-hlt)
+  (query-replace :inherit isearch)
+  (tooltip :foreground @tooltip-fg :background @tooltip-bg)
+  (shadow :foreground @shadow)
+  (secondary-selection :background @secondary-bg)
+  (trailing-whitespace :background @trailing-bg)
+  (window-divider :background @sep :foreground @sep)
+  (vertical-border :background @sep :foreground @sep)
+
+;; Mode Line
+  (mode-line
+   :inherit fixed-pitch
+   :foreground "#111111"
+   :background @bg
+   :overline @sep
+   :box (:line-width 3 :color @bg))
+  (header-line
+   :overline nil
+   :background @header-line-bg
+   :box (:line-width 3 :color @header-line-bg)
+   :underline @sep
+   :inherit mode-line)
+  (mode-line-buffer-id
+   :underline t)
+  (mode-line-emphasis
+   :weight bold)
+  (mode-line-highlight
+   :background "#ffffff")
+  (mode-line-inactive
+   :inherit mode-line
+   :background @bg
+   :foreground "#888888"
+   :box (:color @bg :line-width 3)))
 #+END_SRC
 
 * Preface
@@ -61,6 +107,15 @@ code would be so much better for this.
 * Theme Creator
 #+NAME: theme-definition
 #+BEGIN_SRC emacs-lisp :var palette=dark-poet-palette structure=structure theme-name="dark-poet"
+(defun process (x)
+  (cond
+   ((not x) '())
+   ((listp x) (cons (process (car x)) (process (cdr x))))
+   ((and (symbolp x) (string-prefix-p "@" (symbol-name x)))
+    (concat "," (substring (symbol-name x) 1)))
+   ((stringp x) (concat "\"" x "\""))
+   (t x)))
+
 (concat
  "(let ("
  (mapconcat
@@ -74,19 +129,13 @@ code would be so much better for this.
   (lambda (x)
     (format "  `(%s ((t %s)))"
             (car x)
-            (mapcar
-             (lambda (y)
-               (let ((ys (symbol-name y)))
-                 (if (string-prefix-p "@" ys)
-                     (concat "," (substring ys 1))
-                   y)))
-             (cdr x))))
-  structure
+            (cdr x)))
+  (process structure)
   "\n")
  ")\n"
  " (custom-theme-set-variables '" theme-name "\n"
  "  '(line-spacing .2)\n"
- "  `(fci-rule-color ,'fci)))")
+ "  `(fci-rule-color ,fci)))")
 #+END_SRC
 
 * PostFace
@@ -102,13 +151,48 @@ code would be so much better for this.
 
 * Themes
 ** Poet
+#+NAME: poet-palette
+| Label           | Color   |
+| fg              | #444444 |
+| bg              | #e1d9c2 |
+| emph            | #222222 |
+| sep             | #eeeeee |
+| hlt             | #efefef |
+| bg-hlt          | #fff8e1 |
+| muted           | #795548 |
+| meta            | #4e342e |
+| link            | #303f9f |
+| link-underline  | #304ffe |
+| vlink-underline | #1a237e |
+| header          | #770b0b |
+| button          | #616161 |
+| glyph           | #673AB7 |
+| cursor          | #333333 |
+| paren-match-bg  | #ff1744 |
+| paren-match-fg  | #ffffff |
+| search-fg       | #c2185b |
+| search-bg       | #ffffff |
+| search-fail-bg  | #f8bbd0 |
+| tooltip-fg      | #111111 |
+| tooltip-bg      | #fff176 |
+| shadow          | #999999 |
+| secondary-bg    | #fff59d |
+| trailing-bg     | #ff8a65 |
+| header-line-bg  | #e0e0e0 |
+| fci             | #dedede |
+
 #+BEGIN_SRC emacs-lisp :tangle poet2-theme.el :noweb yes
-;;; poet-dark-theme.el -- A theme for prose.
+;;; poet2-theme.el -- A theme for prose.
 
 <<theme-preface>>
+(deftheme poet2
+  "A prose friendly theme.")
+
+<<theme-definition(palette=poet-palette, theme-name="poet2")>>
+
 <<theme-postface>>
 
-(provide-theme 'poet)
+(provide-theme 'poet2)
 #+END_SRC
 
 ** Dark Poet
@@ -116,6 +200,7 @@ code would be so much better for this.
 | Label | Color   |
 | fg    | #eeeeee |
 | bg    | #111111 |
+| emph  | #ffffff |
 
 #+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
 ;;; poet-dark-theme.el -- A dark theme for prose.
