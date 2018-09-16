@@ -303,7 +303,12 @@ code would be so much better for this.
    :foreground @markdown-header-delimiter)
   (markdown-url-face
    :inherit fixed-pitch
-   :foreground @link))
+   :foreground @link)
+
+;; imenu
+  ,@(generate-numbered-faces
+       "imenu-list-entry-face-" 0 5
+       '(:foreground @imenu)))
 #+END_SRC
 
 * Preface
@@ -489,6 +494,7 @@ code would be so much better for this.
 | markdown-code-bg          | #e0e0e0 |
 | markdown-pre-bg           | #e0e0e0 |
 | markdown-header-delimiter | #8D6E63 |
+| imenu                     | #4e342e |
 
 #+BEGIN_SRC emacs-lisp :tangle poet-theme.el :noweb yes
 ;;; poet-theme.el -- A theme for prose.
