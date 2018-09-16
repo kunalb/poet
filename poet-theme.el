@@ -1,10 +1,10 @@
-;;; poet-theme.el --- A prose friendly theme.
+;;; poet-theme.el -- A theme for prose.
 
-;; Copyright 2018- Kunal Bhalla
+;; Copyright 2018-now Kunal Bhalla
 
 ;; Author: Kunal Bhalla <bhalla.kunal@gmail.com>
 ;; URL: https://github.com/kunalb/poet/
-;; Version: 1.1
+;; Version: 2.0
 
 ;;; Commentary:
 
@@ -30,8 +30,8 @@
 ;;
 ;; - Some other modes I like to enable/disable
 ;;     (olivetti-mode 1)        ;; Centers text in the buffer
-;;     (flyspell-mode 1))       ;; Catch Spelling mistakes
-;;     (typo-mode 1))           ;; Good for symbols like em-dash
+;;     (flyspell-mode 1)        ;; Catch Spelling mistakes
+;;     (typo-mode 1)            ;; Good for symbols like em-dash
 ;;     (blink-cursor-mode 0)    ;; Reduce visual noise
 ;;     (linum-mode 0)           ;; No line numbers for prose
 ;;
@@ -40,452 +40,192 @@
 ;;         '("◉" "○"))
 ;;     (org-bullets 1)
 
-;;; Code:
-
-(deftheme poet
-  "A variable-pitch-mode friendly theme for editing text in org and
-  markdown.")
-
-;;; Utility functions
-
-;; Allow setting faces as (face :property value ...) directly
-;; This theme is defined for the GUI only.
-(defun poet--flatten (face-details)
-  "Rewrite FACE-DETAILS to be usable with `custom-theme-set-faces'.
-
-  This basically ignores Emacs's support for different types of
-  terminals or backgrounds and defaults everything to the provided
-  information."
-  `(,(car face-details) ((t ,(cdr face-details)))))
-
-(defun poet--create-faces (faces)
-  "Add FACES to the theme definition."
-    (apply
-     'custom-theme-set-faces
-     (cons 'poet
-           (mapcar 'poet--flatten faces))))
-
-;; TODO: Consider making this a macro instead
-(defun poet--numbered-faces (prefix
-                             range-start
-                             range-end
-                             callback)
-  "Generate numbered faces: useful for defining headers, etc.
-
-  Faces are generated as PREFIX<number> with the <number> ranging from
-  RANGE-START to RANGE-END.  CALLBACK can be a plain string or a
-  function that accepts the current <number> to generate the
-  corresponding faces."
-  (mapcar
-   (lambda (iter)
-     `(,(intern (concat prefix (number-to-string iter)))
-       ,@(if (functionp callback)
-              (funcall callback iter)
-            callback)))
-   (number-sequence range-start range-end)))
+;;; Code
 
 (defvar poet--monospace-height
-  (face-attribute 'fixed-pitch :height nil 'default)
-  "The base size to use: specified as a defvar to stay consistent.")
+ (face-attribute 'fixed-pitch :height nil 'default)
+ "The original height, maintained as a defvar to stay
+  constant across reloading the theme.")
 
 (defun poet--height (multiplier)
-  "Scale up the height with MULTIPLIER and truncate."
-  (truncate (* multiplier poet--monospace-height)))
-
-;; TODO Allow choosing heading flattening height
-(defun poet--header-height (index base-height max-height)
-  "Calculates appropriate heading heights.
-
-  INDEX defines the current heading index, starting at 1;
-  BASE-HEIGHT is the default text size, and MAX-HEIGHT is
-  the maximum height that can be displayed."
-  (if (= index 1)
-      (+ (poet--height .2) base-height)
-    base-height))
-
-(let*
-    (;; Theme design
-
-     ;; Typography
-     (max-heading-height (poet--height 1.8))
-     (base-height (poet--height 1.23))
-     (monospace-height (poet--height 1))
-
-     ;; Colors
-     (bg "#e1d9c2")
-     (fg "#444444")
-     (sep "#eeeeee")
-
-     (bg-highlight "#fff8e1")
-
-     (muted "#795548")
-     (highlight "#efefef")
-     (meta "#4e342e")
-     (link "#303F9F")
-
-     (header-color "#770b0b")
-
-     (basic
-      `((variable-pitch
-          :family ,(face-attribute 'variable-pitch :family)
-          :height ,base-height)
-        (default
-          :background ,bg
-          :foreground ,fg)
-        (italic
-         :foreground "#222222"
-         :slant italic)
-        (highlight
-         :background ,highlight
-         :overline nil)
-        (region
-         :background ,bg-highlight)
-        (fringe
-         :background ,bg)
-        (button
-         :inherit default
-         :foreground "#616161")
-        (escape-glyph
-         :foreground "#673AB7")
-        (link
-         :underline (:color "#304FFE" :style line)
-         :foreground ,link)
-        (link-visited
-         :inherit link
-         :underline (:color "#1A237E" :style line))
-        (cursor
-         :background "#333333")
-        (show-paren-match
-         :background "#FF1744"
-         :foreground "#ffffff")
-
-        (isearch
-         :foreground "#C2185B"
-         :background "#ffffff")
-        (isearch-fail
-         :background "#f8bbd0")
-        (query-replace
-         :inherit isearch)
-
-        (tooltip
-         :inherit default
-         :foreground "#111111"
-         :background "#fff176")
-
-        (shadow
-         :foreground "#999999")
-
-        (secondary-selection
-         :background "#FFF59D")
-
-        (trailing-whitespace
-         :background "#FF8A65")
-
-        (lazy-highlight
-         :background "white")
-
-        (next-error
-         :inherit region)
-
-        (window-divider
-         :background ,sep
-         :foreground ,sep)
-
-        (vertical-border
-         :background ,sep
-         :foreground ,sep)))
-
-     (evil
-      `((evil-ex-substitute-replacement
-         :foreground "#ffffff"
-         :background "#4E342E"
-         :underline nil)))
-
-     (minibuffer
-      `((minibuffer-prompt
-         :inherit fixed-pitch
-         :weight bold
-         :foreground ,meta)))
-
-     (mode-line
-      `((mode-line
-         :inherit fixed-pitch
-         :foreground "#111111"
-         :background ,bg
-         :overline ,sep
-         :box (:line-width 3
-               :color ,bg))
-        (header-line
-         :overline nil
-         :background "#e0e0e0"
-         :box (:line-width 3
-               :color "#e0e0e0")
-         :underline ,sep
-         :inherit mode-line)
-        (mode-line-buffer-id
-         :underline t)
-        (mode-line-emphasis
-         :weight bold)
-        (mode-line-highlight
-         :background "#ffffff")
-        (mode-line-inactive
-         :inherit mode-line
-         :background ,bg
-         :foreground "#888888"
-         :box (:color ,bg
-               :line-width 3))))
-
-     (syntax
-      `((error
-         :inherit fixed-pitch)
-        (font-lock-comment-face
-         :foreground ,muted
-         :inherit fixed-pitch)
-        (font-lock-builtin-face
-         :foreground "#795548"
-         :inherit fixed-pitch)
-        (font-lock-string-face
-         :inherit fixed-pitch
-         :foreground "#6C3082")
-        (font-lock-function-name-face
-         :inherit fixed-pitch
-         :foreground "#388E3C")
-        (font-lock-keyword-face
-         :inherit fixed-pitch
-         :foreground "#bf360c")
-        (font-lock-comment-delimiter-face
-         :inherit fixed-pitch
-         :inherit font-lock-comment-face)
-        (font-lock-constant-face
-         :inherit fixed-pitch
-         :foreground "#0288D1")
-        (font-lock-doc-face
-         :inherit fixed-pitch
-         :inherit font-lock-string-face)
-        (font-lock-preprocessor-face
-         :inherit fixed-pitch
-         :inherit font-lock-builtin-face)
-        (font-lock-regexp-grouping-backslash
-         :inherit fixed-pitch
-         :inherit bold)
-        (font-lock-regexp-grouping-construct
-         :inherit fixed-pitch
-         :inherit bold)
-        (font-lock-type-face
-         :foreground "#3f51b5"
-         :inherit fixed-pitch)
-        (font-lock-variable-name-face
-         :inherit fixed-pitch
-         :foreground "#455A64")
-        (font-lock-warning-face
-         :inherit error)))
-
-     (org
-      `(,@(poet--numbered-faces
-           "org-level-" 1 8
-           (lambda (index)
-             (list
-              ':inherit 'default
-              ':foreground header-color
-              ':height (poet--header-height index base-height max-heading-height))))
-
-        (org-meta-line
-         :inherit fixed-pitch
-         :foreground "#8D6E63")
-
-        (org-document-info-keyword
-         :inherit fixed-pitch
-         :foreground "#795548")
-
-        (org-verbatim ; inline code
-         :inherit fixed-pitch)
-
-        (org-table
-         :inherit fixed-pitch
-         :background "#e0e0e0")
-
-        (org-formula
-         :inherit org-table
-         :height ,monospace-height)
-
-        (org-quote
-         :inherit default
-         :foreground "#4A148C"
-         :background "#e0e0e0")
-
-        (org-hide
-         :inherit fixed-pitch
-         :foreground ,bg)
-
-        (org-indent
-         :inherit org-hide)
-
-        (org-date
-         :inherit fixed-pitch
-         :foreground "#444444"
-         :underline nil)
-
-        (org-document-title
-         :inherit default
-         :foreground "#B71C1C"
-         :height ,max-heading-height
-         :underline (:color "#aaaaaa"))
-
-        (org-checkbox
-         :inherit fixed-pitch
-         :weight bold
-         :foreground "#aaaaaa")
-
-        (org-scheduled
-         :foreground "#333333")
-
-        (org-scheduled-today
-         :foreground "#111111")
-
-        (org-done
-         :inherit fixed-pitch
-         :foreground "#388E3C")
-
-        (org-todo
-         :inherit fixed-pitch
-         :foreground "#BF360C")
-
-        (org-tag
-         :inherit fixed-pitch
-         :height ,(poet--height 1)
-         :foreground "#777777")
-
-        (org-block-begin-line
-         :inherit fixed-pitch
-         :background "#d0d0d0")
-
-        (org-block-end-line
-         :inherit fixed-pitch
-         :background "#d0d0d0")
-
-        (org-block
-         :background "#e0e0e0"
-         :inherit fixed-pitch)
-
-        (org-priority
-         :inherit fixed-pitch
-         :weight normal)
-
-        (org-agenda-structure
-         :foreground "#555555"
-         :background "#e0e0e0"
-         :overline "#e0e0e0"
-         :underline "#e0e0e0")
-
-        (org-agenda-date-weekend
-         :inherit org-agenda-structure)
-
-        (org-agenda-date-today
-         :foreground "#000000"
-         :overline "#eeeeee"
-         :background "#eeeeee"
-         :underline "#eeeeee")
-
-        (org-special-keyword
-         :inherit fixed-pitch
-         :foreground "#777777")
-
-        (org-scheduled-previously
-         :foreground "#222222")
-
-        (org-agenda-done
-         :foreground "#777777")))
-
-     (hl-line
-      `((hl-line
-         :background "#efefef")))
-
-
-     (linum
-      `((linum-highlight-face
-         :inherit default
-         :foreground "#555555")
-        (linum
-         :inherit default
-         :foreground "#aaaaaa")))
-
-     (markdown
-      `((markdown-markup-face
-         :inherit fixed-pitch
-         :foreground "#8D6E63")
-
-        (markdown-inline-code-face
-         :inherit fixed-pitch)
-
-        (markdown-metadata-key-face
-         :inherit fixed-pitch
-         :height ,(poet--height 1)
-         :foreground "#777777")
-
-        (markdown-metadata-value-face
-         :inherit fixed-pitch
-         :height ,(poet--height 1)
-         :foreground ,fg)
-
-        (markdown-language-keyword-face
-         :foreground "#7b1fa2")
-
-        (markdown-list-face
-         :inherit fixed-pitch
-         :foreground "#000000")
-
-        (markdown-code-face
-         :inherit fixed-pitch
-         :foreground ,fg
-         :background "#e0e0e0")
-
-        (markdown-pre-face
-         :inherit fixed-pitch
-         :color ,fg
-         :background "#e0e0e0")
-
-        (markdown-header-delimiter-face
-         :inherit fixed-pitch
-         :foreground "#8D6E63")
-
-        (markdown-header-rule-face
-         :inherit fixed-pitch
-         :foreground "#8D6E63")
-
-        (markdown-url-face
-         :inherit fixed-pitch
-         :foreground "#444444")
-
-        ,@(poet--numbered-faces
-           "markdown-header-face-" 1 8
-           (lambda (index)
-             (list
-              ':foreground header-color
-              ':inherit 'default
-              ':height (max
-                        (+ (poet--height .08) base-height)
-                        (- max-heading-height (* (poet--height .2) index))))))))
-
-     (imenu-list
-      `(,@(poet--numbered-faces
-           "imenu-list-entry-face-" 0 5
-           '(:foreground "#4e342e")))))
-  (poet--create-faces
-   `(,@basic
-     ,@minibuffer
-     ,@syntax
-     ,@mode-line
-     ,@evil
-     ,@org
-     ,@linum
-     ,@hl-line
-     ,@imenu-list
-     ,@markdown)))
-
-(custom-theme-set-variables
- 'poet
- '(line-spacing .2)
- '(fci-rule-color "#dedede"))
+ "Scale up the height according to the multiplier."
+ (truncate (* poet--monospace-height multiplier)))
+(deftheme poet
+  "A prose friendly theme.")
+
+(let ((fg "#444444")
+      (bg "#e1d9c2")
+      (emph "#222222")
+      (sep "#eeeeee")
+      (hlt "#efefef")
+      (bg-hlt "#fff8e1")
+      (muted "#795548")
+      (meta "#4e342e")
+      (link "#303f9f")
+      (link-underline "#304ffe")
+      (vlink-underline "#1a237e")
+      (header "#770b0b")
+      (button "#616161")
+      (glyph "#673AB7")
+      (cursor "#333333")
+      (paren-match-bg "#ff1744")
+      (paren-match-fg "#ffffff")
+      (search-fg "#c2185b")
+      (search-bg "#ffffff")
+      (search-fail-bg "#f8bbd0")
+      (tooltip-fg "#111111")
+      (tooltip-bg "#fff176")
+      (shadow "#999999")
+      (secondary-bg "#fff59d")
+      (trailing-bg "#ff8a65")
+      (header-line-bg "#e0e0e0")
+      (fci "#dedede")
+      (lazy-hlt "#ffffff")
+      (evil-rep-fg "#ffffff")
+      (evil-rep-bg "#4e342e")
+      (mode-line-fg "#111111")
+      (header-line-bg "#e0e0e0")
+      (mode-line-hlt "#ffffff")
+      (mode-line-inactive "#888888")
+      (builtin "#795548")
+      (string "#6C3082")
+      (function-name "#388E3C")
+      (keyword "#bf360c")
+      (constant "#0288D1")
+      (type "#3f51b5")
+      (variable "#455A64")
+      (org-meta "#8D6E63")
+      (org-document-info "#795548")
+      (org-table "#e0e0e0")
+      (org-quote-fg "#4A148C")
+      (org-quote-bg "#e0e0e0")
+      (org-date "#444444")
+      (org-title "#B71C1C")
+      (org-title-underline "#aaaaaa")
+      (org-checkbox "#aaaaaa")
+      (org-scheduled "#333333")
+      (org-scheduled-today "#111111")
+      (org-done "#388E3C")
+      (org-todo "#BF360C")
+      (org-tag "#777777")
+      (org-block-line "#d0d0d0")
+      (org-block-bg "#e0e0e0")
+      (org-agenda-structure-fg "#555555")
+      (org-agenda-structure-bg "#e0e0e0")
+      (org-agenda-today-fg "#000000")
+      (org-agenda-today-bg "#eeeeee")
+      (org-special-keyword "#777777")
+      (org-sched-prev "#222222")
+      (org-agenda-done "#777777")
+      (hl-line "#efefef")
+      (linum-hlt "#555555")
+      (linum "#aaaaaa")
+      (markdown-markup "#8D6E63")
+      (markdown-metadata "#777777")
+      (markdown-language "#7b1fa2")
+      (markdown-list "#000000")
+      (markdown-code-bg "#e0e0e0")
+      (markdown-pre-bg "#e0e0e0")
+      (markdown-header-delimiter "#8D6E63"))
+ (custom-theme-set-faces 'poet
+  `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height ,(poet--height 1.23)))))
+  `(default ((t (:background ,bg :foreground ,fg))))
+  `(italic ((t (:foreground ,emph :slant italic))))
+  `(highlight ((t (:background ,hlt :overline nil))))
+  `(region ((t (:background ,bg-hlt))))
+  `(fringe ((t (:background ,bg))))
+  `(button ((t (:inherit default :foreground ,button))))
+  `(escape-glyph ((t (:foreground ,glyph))))
+  `(link ((t (:underline (:color ,link-underline :style line) :foreground ,link))))
+  `(link-visited ((t (:inherit link :underline (:color ,vlink-underline :style line)))))
+  `(cursor ((t (:background ,cursor))))
+  `(show-paren-match ((t (:background ,paren-match-fg :foreground ,paren-match-bg))))
+  `(isearch ((t (:foreground ,search-fg :background ,search-bg))))
+  `(isearch-fail ((t (:background ,search-fail-bg))))
+  `(query-replace ((t (:inherit isearch))))
+  `(tooltip ((t (:inherit default :foreground ,tooltip-fg :background ,tooltip-bg))))
+  `(shadow ((t (:foreground ,shadow))))
+  `(secondary-selection ((t (:background ,secondary-bg))))
+  `(trailing-whitespace ((t (:background ,trailing-bg))))
+  `(lazy-highlight ((t (:background ,lazy-hlt))))
+  `(next-error ((t (:inherit region))))
+  `(window-divider ((t (:background ,sep :foreground ,sep))))
+  `(vertical-border ((t (:background ,sep :foreground ,sep))))
+  `(evil-ex-substitute-replacement ((t (:foreground ,evil-rep-fg :background ,evil-rep-bg :underline nil))))
+  `(minibuffer-prompt ((t (:inherit fixed-pitch :weight bold :foreground ,meta))))
+  `(mode-line ((t (:inherit fixed-pitch :foreground ,mode-line-fg :background ,bg :overline ,sep :box (:line-width 3 :color ,bg)))))
+  `(header-line ((t (:overline nil :background ,header-line-bg :box (:line-width 3 :color ,header-line-bg) :underline ,sep :inherit mode-line))))
+  `(mode-line-buffer-id ((t (:underline t))))
+  `(mode-line-emphasis ((t (:weight bold))))
+  `(mode-line-highlight ((t (:background ,mode-line-hlt))))
+  `(mode-line-inactive ((t (:inherit mode-line :background ,bg :foreground ,mode-line-inactive :box (:color ,bg :line-width 3)))))
+  `(error ((t (:inherit fixed-pitch))))
+  `(font-lock-comment-face ((t (:foreground ,muted :inherit fixed-pitch))))
+  `(font-lock-builtin-face ((t (:foreground ,builtin :inherit fixed-pitch))))
+  `(font-lock-string-face ((t (:inherit fixed-pitch :foreground ,string))))
+  `(font-lock-function-name-face ((t (:inherit fixed-pitch :foreground ,function-name))))
+  `(font-lock-keyword-face ((t (:inherit fixed-pitch :foreground ,keyword))))
+  `(font-lock-comment-delimiter-face ((t (:inherit fixed-pitch :inherit font-lock-comment-face))))
+  `(font-lock-constant-face ((t (:inherit fixed-pitch :foreground ,constant))))
+  `(font-lock-doc-face ((t (:inherit fixed-pitch :inherit font-lock-string-face))))
+  `(font-lock-preprocessor-face ((t (:inherit fixed-pitch :inherit font-lock-builtin-face))))
+  `(font-lock-regexp-grouping-backslash ((t (:inherit fixed-pitch :inherit bold))))
+  `(font-lock-regexp-grouping-construct ((t (:inherit fixed-pitch :inherit bold))))
+  `(font-lock-type-face ((t (:foreground ,type :inherit fixed-pitch))))
+  `(font-lock-variable-name-face ((t (:inherit fixed-pitch :foreground ,variable))))
+  `(font-lock-warning-face ((t (:inherit error))))
+  `(org-level-1 ((t (:inherit default :foreground ,header :height ,(poet--height 1.5)))))
+  `(org-level-2 ((t (:inherit default :foreground ,header :height ,(poet--height 1.4)))))
+  `(org-level-3 ((t (:inherit default :foreground ,header :height ,(poet--height 1.3)))))
+  `(org-level-4 ((t (:inherit default :foreground ,header :height ,(poet--height 1.23)))))
+  `(org-level-5 ((t (:inherit default :foreground ,header :height ,(poet--height 1.23)))))
+  `(org-level-6 ((t (:inherit default :foreground ,header :height ,(poet--height 1.23)))))
+  `(org-level-7 ((t (:inherit default :foreground ,header :height ,(poet--height 1.23)))))
+  `(org-level-8 ((t (:inherit default :foreground ,header :height ,(poet--height 1.23)))))
+  `(org-meta-line ((t (:inherit fixed-pitch :foreground ,org-meta))))
+  `(org-document-info-keyword ((t (:inherit fixed-pitch :foreground ,org-document-info))))
+  `(org-verbatim ((t (:inherit fixed-pitch))))
+  `(org-table ((t (:inherit fixed-pitch :background ,org-table))))
+  `(org-formula ((t (:inherit org-table :height ,(poet--height 1)))))
+  `(org-quote ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))
+  `(org-hide ((t (:inherit fixed-pitch :foreground ,bg))))
+  `(org-indent ((t (:inherit org-hide))))
+  `(org-date ((t (:inherit fixed-pitch :foreground ,org-date :underline nil))))
+  `(org-document-title ((t (:inherit default :foreground ,org-title :height ,(poet--height 1.8) :underline (:color ,org-title-underline)))))
+  `(org-checkbox ((t (:inherit fixed-pitch :weight bold :foreground ,org-checkbox))))
+  `(org-scheduled ((t (:foreground ,org-scheduled))))
+  `(org-scheduled-today ((t (:foreground ,org-scheduled-today))))
+  `(org-done ((t (:inherit fixed-pitch :foreground ,org-done))))
+  `(org-todo ((t (:inherit fixed-pitch :foreground ,org-todo))))
+  `(org-tag ((t (:inherit fixed-pitch :height ,(poet--height 1) :foreground ,org-tag))))
+  `(org-block-begin-line ((t (:inherit fixed-pitch :background ,org-block-line))))
+  `(org-block-end-line ((t (:inherit fixed-pitch :background ,org-block-line))))
+  `(org-block ((t (:background ,org-block-bg :inherit fixed-pitch))))
+  `(org-priority ((t (:inherit fixed-pitch :weight normal))))
+  `(org-agenda-structure ((t (:foreground ,org-agenda-structure-fg :background ,org-agenda-structure-bg :overline ,org-agenda-structure-bg :underline ,org-agenda-structure-bg))))
+  `(org-agenda-date-weekend ((t (:inherit org-agenda-structure))))
+  `(org-agenda-date-today ((t (:foreground ,org-agenda-today-fg :overline ,org-agenda-today-bg :background ,org-agenda-today-bg :underline ,org-agenda-today-bg))))
+  `(org-special-keyword ((t (:inherit fixed-pitch :foreground ,org-special-keyword))))
+  `(org-scheduled-previously ((t (:foreground ,org-sched-prev))))
+  `(org-agenda-done ((t (:foreground ,org-agenda-done))))
+  `(hl-line ((t (:background ,hl-line))))
+  `(linum-highlight-face ((t (:inherit default :foreground ,linum-hlt))))
+  `(linum ((t (:inherit default :foreground ,linum))))
+  `(generate-numbered-faces ((t ("markdown-header-face-" 1 8 (lambda (index) (` (:foreground ,header :inherit default :height (, (header-height index)))))))))
+  `(markdown-markup-face ((t (:inherit fixed-pitch :foreground ,markdown-markup))))
+  `(markdown-inline-code-face ((t (:inherit fixed-pitch))))
+  `(markdown-metadata-key-face ((t (:inherit fixed-pitch :height ,(poet--height 1) :foreground ,markdown-metadata))))
+  `(markdown-metadata-value-face ((t (:inherit fixed-pitch :height ,(poet--height 1) :foreground ,fg))))
+  `(markdown-language-keyword-face ((t (:foreground ,markdown-language))))
+  `(markdown-list-face ((t (:inherit fixed-pitch :foreground ,markdown-list))))
+  `(markdown-code-face ((t (:inherit fixed-pitch :foreground ,fg :background ,markdown-code-bg))))
+  `(markdown-pre-face ((t (:inherit fixed-pitch :color ,fg :background ,markdown-pre-bg))))
+  `(markdown-header-delimiter-face ((t (:inherit fixed-pitch :foreground ,markdown-header-delimiter))))
+  `(markdown-header-rule-face ((t (:inherit fixed-pitch :foreground ,markdown-header-delimiter))))
+  `(markdown-url-face ((t (:inherit fixed-pitch :foreground ,link)))))
+ (custom-theme-set-variables 'poet
+  '(line-spacing .2)
+  `(fci-rule-color ,fci)))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path)
@@ -495,4 +235,3 @@
                 (file-name-directory load-file-name))))
 
 (provide-theme 'poet)
-;;; poet-theme.el ends here

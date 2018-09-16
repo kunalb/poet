@@ -490,18 +490,18 @@ code would be so much better for this.
 | markdown-pre-bg           | #e0e0e0 |
 | markdown-header-delimiter | #8D6E63 |
 
-#+BEGIN_SRC emacs-lisp :tangle poet2-theme.el :noweb yes
-;;; poet2-theme.el -- A theme for prose.
+#+BEGIN_SRC emacs-lisp :tangle poet-theme.el :noweb yes
+;;; poet-theme.el -- A theme for prose.
 
 <<theme-preface>>
-(deftheme poet2
+(deftheme poet
   "A prose friendly theme.")
 
-<<theme-definition(palette=poet-palette, theme-name="poet2")>>
+<<theme-definition(palette=poet-palette, theme-name="poet")>>
 
 <<theme-postface>>
 
-(provide-theme 'poet2)
+(provide-theme 'poet)
 #+END_SRC
 
 ** Monochrome Poet
