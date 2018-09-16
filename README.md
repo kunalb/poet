@@ -52,13 +52,15 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 - [x] Publish v1 to Melpa.
 ---
 - [x] Add more screenshots showing off different modes (particularly markdown)
+- [x] Evaluate & test github flavoured markdown in markdown-mode.
+- [x] Publish v2 to Melpa
+---
+- [x] Create a poet-dark mode with a yellow/white/black scheme.
+- [ ] Add a dark brown theme
 - [ ] Add support for customizing font faces
 - [ ] Document support for additional modes.
-- [x] Evaluate & test github flavoured markdown in markdown-mode.
-- [ ] Publish v2 to Melpa
----
-- [ ] Create a poet-dark mode with a yellow/white/dark brown  scheme.
 - [ ] Publish v3 to Melpa.
+
 
 ## More Screenshots
 ![Org](https://github.com/kunalb/poet/raw/master/org.png)
