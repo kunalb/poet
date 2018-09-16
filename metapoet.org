@@ -7,34 +7,96 @@ code would be so much better for this.
 * Structure
 #+NAME: structure
 #+BEGIN_SRC emacs-lisp
-;; Basics
-`((default :foreground @fg :background @bg)
-  (italic :foreground @emph)
-  (fringe :background @bg)
-  (button :inherit default :foreground @button)
-  (link :foreground @link :underline (:color @link-underline :style line))
-  (link-visited :inherit link :underline (:color @vlink-underline :style line))
-  (escape-glyph :foreground @glyph)
-  (highlight :background @hlt :overline nil)
-  (lazy-highlight :background @bg-hlt)
-  (region :background @bg-hlt)
-  (cursor :background @cursor)
-  (show-paren-match :foreground @paren-match-fg :background @paren-match-bg)
-  (isearch :foreground @search-fg :background @search-bg)
-  (isearch-fail :background @search-fail-bg)
-  (next-error :background @bg-hlt)
-  (query-replace :inherit isearch)
-  (tooltip :foreground @tooltip-fg :background @tooltip-bg)
-  (shadow :foreground @shadow)
-  (secondary-selection :background @secondary-bg)
-  (trailing-whitespace :background @trailing-bg)
-  (window-divider :background @sep :foreground @sep)
-  (vertical-border :background @sep :foreground @sep)
+(defun generate-numbered-faces (prefix start end callback)
+ (mapcar
+  (lambda (it)
+   `(,(make-symbol (concat prefix (number-to-string it)))
+     ,@(if (functionp callback) (funcall callback it) callback)))
+  (number-sequence start end)))
 
-;; Mode Line
+(defun header-height (index)
+  (make-symbol
+   (concat "*"
+           (number-to-string (max 1.23
+                                  (+ .8 (/ (- 8 index) 10.0)))))))
+
+;; Basics
+`((variable-pitch
+   :family variable-pitch-family
+   :height *1.23)
+  (default
+    :background @bg
+    :foreground @fg)
+  (italic
+   :foreground @emph
+   :slant italic)
+  (highlight
+   :background @hlt
+   :overline nil)
+  (region
+   :background @bg-hlt)
+  (fringe
+   :background @bg)
+  (button
+   :inherit default
+   :foreground @button)
+  (escape-glyph
+   :foreground @glyph)
+  (link
+   :underline (:color @link-underline :style line)
+   :foreground @link)
+  (link-visited
+   :inherit link
+   :underline (:color @vlink-underline :style line))
+  (cursor
+   :background @cursor)
+  (show-paren-match
+   :background @paren-match-fg
+   :foreground @paren-match-bg)
+  (isearch
+   :foreground @search-fg
+   :background @search-bg)
+  (isearch-fail
+   :background @search-fail-bg)
+  (query-replace
+   :inherit isearch)
+  (tooltip
+   :inherit default
+   :foreground @tooltip-fg
+   :background @tooltip-bg)
+  (shadow
+   :foreground @shadow)
+  (secondary-selection
+   :background @secondary-bg)
+  (trailing-whitespace
+   :background @trailing-bg)
+  (lazy-highlight
+   :background @lazy-hlt)
+  (next-error
+   :inherit region)
+  (window-divider
+   :background @sep
+   :foreground @sep)
+  (vertical-border
+   :background @sep
+   :foreground @sep)
+
+;; Evil
+  (evil-ex-substitute-replacement
+   :foreground @evil-rep-fg
+   :background @evil-rep-bg
+   :underline nil)
+
+;; Minibuffer
+  (minibuffer-prompt
+   :inherit fixed-pitch
+   :weight bold
+   :foreground @meta)
+
+ ;; Mode Line
   (mode-line
    :inherit fixed-pitch
-   :foreground "#111111"
+   :foreground @mode-line-fg
    :background @bg
    :overline @sep
    :box (:line-width 3 :color @bg))
@@ -49,12 +111,199 @@ code would be so much better for this.
   (mode-line-emphasis
    :weight bold)
   (mode-line-highlight
-   :background "#ffffff")
+   :background @mode-line-hlt)
   (mode-line-inactive
    :inherit mode-line
    :background @bg
-   :foreground "#888888"
-   :box (:color @bg :line-width 3)))
+   :foreground @mode-line-inactive
+   :box (:color @bg :line-width 3))
+
+;; Syntax
+  (error
+   :inherit fixed-pitch)
+  (font-lock-comment-face
+   :foreground @muted
+   :inherit fixed-pitch)
+  (font-lock-builtin-face
+   :foreground @builtin
+   :inherit fixed-pitch)
+  (font-lock-string-face
+   :inherit fixed-pitch
+   :foreground @string)
+  (font-lock-function-name-face
+   :inherit fixed-pitch
+   :foreground @function-name)
+  (font-lock-keyword-face
+   :inherit fixed-pitch
+   :foreground @keyword)
+  (font-lock-comment-delimiter-face
+   :inherit fixed-pitch
+   :inherit font-lock-comment-face)
+  (font-lock-constant-face
+   :inherit fixed-pitch
+   :foreground @constant)
+  (font-lock-doc-face
+   :inherit fixed-pitch
+   :inherit font-lock-string-face)
+  (font-lock-preprocessor-face
+   :inherit fixed-pitch
+   :inherit font-lock-builtin-face)
+  (font-lock-regexp-grouping-backslash
+   :inherit fixed-pitch
+   :inherit bold)
+  (font-lock-regexp-grouping-construct
+   :inherit fixed-pitch
+   :inherit bold)
+  (font-lock-type-face
+   :foreground @type
+   :inherit fixed-pitch)
+  (font-lock-variable-name-face
+   :inherit fixed-pitch
+   :foreground @variable)
+  (font-lock-warning-face
+   :inherit error)
+
+;; Org
+  ,@(generate-numbered-faces "org-level-" 1 8
+     (lambda (index)
+      `(:inherit default
+        :foreground @header
+        :height ,(header-height index))))
+  (org-meta-line
+   :inherit fixed-pitch
+   :foreground @org-meta)
+  (org-document-info-keyword
+   :inherit fixed-pitch
+   :foreground @org-document-info)
+  (org-verbatim ; inline code
+   :inherit fixed-pitch)
+  (org-table
+   :inherit fixed-pitch
+   :background @org-table)
+  (org-formula
+   :inherit org-table
+   :height *1)
+  (org-quote
+   :inherit default
+   :foreground @org-quote-fg
+   :background @org-quote-bg)
+  (org-hide
+   :inherit fixed-pitch
+   :foreground @bg)
+  (org-indent
+   :inherit org-hide)
+  (org-date
+   :inherit fixed-pitch
+   :foreground @org-date
+   :underline nil)
+  (org-document-title
+   :inherit default
+   :foreground @org-title
+   :height *1.8
+   :underline (:color @org-title-underline))
+  (org-checkbox
+   :inherit fixed-pitch
+   :weight bold
+   :foreground @org-checkbox)
+  (org-scheduled
+   :foreground @org-scheduled)
+  (org-scheduled-today
+   :foreground @org-scheduled-today)
+  (org-done
+   :inherit fixed-pitch
+   :foreground @org-done)
+  (org-todo
+   :inherit fixed-pitch
+   :foreground @org-todo)
+  (org-tag
+   :inherit fixed-pitch
+   :height *1
+   :foreground @org-tag)
+  (org-block-begin-line
+   :inherit fixed-pitch
+   :background @org-block-line)
+  (org-block-end-line
+   :inherit fixed-pitch
+   :background @org-block-line)
+  (org-block
+   :background @org-block-bg
+   :inherit fixed-pitch)
+  (org-priority
+   :inherit fixed-pitch
+   :weight normal)
+  (org-agenda-structure
+   :foreground @org-agenda-structure-fg
+   :background @org-agenda-structure-bg
+   :overline @org-agenda-structure-bg
+   :underline @org-agenda-structure-bg)
+  (org-agenda-date-weekend
+   :inherit org-agenda-structure)
+  (org-agenda-date-today
+   :foreground @org-agenda-today-fg
+   :overline @org-agenda-today-bg
+   :background @org-agenda-today-bg
+   :underline @org-agenda-today-bg)
+  (org-special-keyword
+   :inherit fixed-pitch
+   :foreground @org-special-keyword)
+  (org-scheduled-previously
+   :foreground @org-sched-prev)
+  (org-agenda-done
+   :foreground @org-agenda-done)
+
+;; hl-line
+  (hl-line
+   :background @hl-line)
+
+;; linum
+  (linum-highlight-face
+   :inherit default
+   :foreground @linum-hlt)
+  (linum
+   :inherit default
+   :foreground @linum)
+
+;; Markdown
+  (generate-numbered-faces "markdown-header-face-" 1 8
+   (lambda (index)
+    `(:foreground @header
+      :inherit default
+      :height ,(header-height index))))
+  (markdown-markup-face
+   :inherit fixed-pitch
+   :foreground @markdown-markup)
+  (markdown-inline-code-face
+   :inherit fixed-pitch)
+  (markdown-metadata-key-face
+   :inherit fixed-pitch
+   :height *1
+   :foreground @markdown-metadata)
+  (markdown-metadata-value-face
+   :inherit fixed-pitch
+   :height *1
+   :foreground @fg)
+  (markdown-language-keyword-face
+   :foreground @markdown-language)
+  (markdown-list-face
+   :inherit fixed-pitch
+   :foreground @markdown-list)
+  (markdown-code-face
+   :inherit fixed-pitch
+   :foreground @fg
+   :background @markdown-code-bg)
+  (markdown-pre-face
+   :inherit fixed-pitch
+   :color @fg
+   :background @markdown-pre-bg)
+  (markdown-header-delimiter-face
+   :inherit fixed-pitch
+   :foreground @markdown-header-delimiter)
+  (markdown-header-rule-face
+   :inherit fixed-pitch
+   :foreground @markdown-header-delimiter)
+  (markdown-url-face
+   :inherit fixed-pitch
+   :foreground @link))
 #+END_SRC
 
 * Preface
@@ -102,17 +351,30 @@ code would be so much better for this.
 
 ;;; Code
 
+(defvar poet--monospace-height
+ (face-attribute 'fixed-pitch :height nil 'default)
+ "The original height, maintained as a defvar to stay
+  constant across reloading the theme.")
+
+(defun poet--height (multiplier)
+ "Scale up the height according to the multiplier."
+ (truncate (* poet--monospace-height multiplier)))
 #+END_SRC
 
 * Theme Creator
 #+NAME: theme-definition
-#+BEGIN_SRC emacs-lisp :var palette=dark-poet-palette structure=structure theme-name="dark-poet"
+#+BEGIN_SRC emacs-lisp :var palette='() structure=structure theme-name=""
 (defun process (x)
+  "Process the face list to replace color names with symbols,
+   and heights with function values."
   (cond
    ((not x) '())
    ((listp x) (cons (process (car x)) (process (cdr x))))
+   ((eq 'variable-pitch-family x) ",(face-attribute 'variable-pitch :family)") ; hack hack hack
    ((and (symbolp x) (string-prefix-p "@" (symbol-name x)))
     (concat "," (substring (symbol-name x) 1)))
+   ((and (symbolp x) (string-prefix-p "*" (symbol-name x)))
+    (concat ",(poet--height " (substring (symbol-name x) 1) ")"))
    ((stringp x) (concat "\"" x "\""))
    (t x)))
 
@@ -138,7 +400,7 @@ code would be so much better for this.
  "  `(fci-rule-color ,fci)))")
 #+END_SRC
 
-* PostFace
+* Postface
 #+NAME: theme-postface
 #+BEGIN_SRC emacs-lisp
 ;;;###autoload
@@ -152,34 +414,81 @@ code would be so much better for this.
 * Themes
 ** Poet
 #+NAME: poet-palette
-| Label           | Color   |
-| fg              | #444444 |
-| bg              | #e1d9c2 |
-| emph            | #222222 |
-| sep             | #eeeeee |
-| hlt             | #efefef |
-| bg-hlt          | #fff8e1 |
-| muted           | #795548 |
-| meta            | #4e342e |
-| link            | #303f9f |
-| link-underline  | #304ffe |
-| vlink-underline | #1a237e |
-| header          | #770b0b |
-| button          | #616161 |
-| glyph           | #673AB7 |
-| cursor          | #333333 |
-| paren-match-bg  | #ff1744 |
-| paren-match-fg  | #ffffff |
-| search-fg       | #c2185b |
-| search-bg       | #ffffff |
-| search-fail-bg  | #f8bbd0 |
-| tooltip-fg      | #111111 |
-| tooltip-bg      | #fff176 |
-| shadow          | #999999 |
-| secondary-bg    | #fff59d |
-| trailing-bg     | #ff8a65 |
-| header-line-bg  | #e0e0e0 |
-| fci             | #dedede |
+| Label                     | Color   |
+| fg                        | #444444 |
+| bg                        | #e1d9c2 |
+| emph                      | #222222 |
+| sep                       | #eeeeee |
+| hlt                       | #efefef |
+| bg-hlt                    | #fff8e1 |
+| muted                     | #795548 |
+| meta                      | #4e342e |
+| link                      | #303f9f |
+| link-underline            | #304ffe |
+| vlink-underline           | #1a237e |
+| header                    | #770b0b |
+| button                    | #616161 |
+| glyph                     | #673AB7 |
+| cursor                    | #333333 |
+| paren-match-bg            | #ff1744 |
+| paren-match-fg            | #ffffff |
+| search-fg                 | #c2185b |
+| search-bg                 | #ffffff |
+| search-fail-bg            | #f8bbd0 |
+| tooltip-fg                | #111111 |
+| tooltip-bg                | #fff176 |
+| shadow                    | #999999 |
+| secondary-bg              | #fff59d |
+| trailing-bg               | #ff8a65 |
+| header-line-bg            | #e0e0e0 |
+| fci                       | #dedede |
+| lazy-hlt                  | #ffffff |
+| evil-rep-fg               | #ffffff |
+| evil-rep-bg               | #4e342e |
+| mode-line-fg              | #111111 |
+| header-line-bg            | #e0e0e0 |
+| mode-line-hlt             | #ffffff |
+| mode-line-inactive        | #888888 |
+| builtin                   | #795548 |
+| string                    | #6C3082 |
+| function-name             | #388E3C |
+| keyword                   | #bf360c |
+| constant                  | #0288D1 |
+| type                      | #3f51b5 |
+| variable                  | #455A64 |
+| org-meta                  | #8D6E63 |
+| org-document-info         | #795548 |
+| org-table                 | #e0e0e0 |
+| org-quote-fg              | #4A148C |
+| org-quote-bg              | #e0e0e0 |
+| org-date                  | #444444 |
+| org-title                 | #B71C1C |
+| org-title-underline       | #aaaaaa |
+| org-checkbox              | #aaaaaa |
+| org-scheduled             | #333333 |
+| org-scheduled-today       | #111111 |
+| org-done                  | #388E3C |
+| org-todo                  | #BF360C |
+| org-tag                   | #777777 |
+| org-block-line            | #d0d0d0 |
+| org-block-bg              | #e0e0e0 |
+| org-agenda-structure-fg   | #555555 |
+| org-agenda-structure-bg   | #e0e0e0 |
+| org-agenda-today-fg       | #000000 |
+| org-agenda-today-bg       | #eeeeee |
+| org-special-keyword       | #777777 |
+| org-sched-prev            | #222222 |
+| org-agenda-done           | #777777 |
+| hl-line                   | #efefef |
+| linum-hlt                 | #555555 |
+| linum                     | #aaaaaa |
+| markdown-markup           | #8D6E63 |
+| markdown-metadata         | #777777 |
+| markdown-language         | #7b1fa2 |
+| markdown-list             | #000000 |
+| markdown-code-bg          | #e0e0e0 |
+| markdown-pre-bg           | #e0e0e0 |
+| markdown-header-delimiter | #8D6E63 |
 
 #+BEGIN_SRC emacs-lisp :tangle poet2-theme.el :noweb yes
 ;;; poet2-theme.el -- A theme for prose.
@@ -195,45 +504,17 @@ code would be so much better for this.
 (provide-theme 'poet2)
 #+END_SRC
 
-** Dark Poet
-#+NAME: dark-poet-palette
-| Label | Color   |
-| fg    | #eeeeee |
-| bg    | #111111 |
-| emph  | #ffffff |
-
-#+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
-;;; poet-dark-theme.el -- A dark theme for prose.
-
-<<theme-preface>>
-(deftheme poet-dark
-  "A dark prose friendly theme.")
-
-<<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
-
-<<theme-postface>>
-
-(provide-theme 'poet-dark)
-#+END_SRC
-
 ** Monochrome Poet
 #+BEGIN_SRC emacs-lisp :tangle poet-monochrome-theme.el :noweb yes
-;;; poet-dark-theme.el -- A monochrome theme for prose.
+;;; poet-monochrome-theme.el -- A monochrome theme for prose.
 
 <<theme-preface>>
+(deftheme poet-monochrome
+  "A monochrome prose friendly theme.")
+
+<<theme-definition(palette=poet-palette, theme-name="poet-monochrome")>>
 
 <<theme-postface>>
 
 (provide-theme 'poet-monochrome)
-#+END_SRC
-
-** Dark Monochrome Poet
-#+BEGIN_SRC emacs-lisp :tangle poet-dark-monochrome-theme.el :noweb yes
-;;; poet-dark-theme.el -- A dark monochrome theme for prose.
-
-<<theme-preface>>
-
-<<theme-postface>>
-
-(provide-theme 'poet-dark-monochrome)
 #+END_SRC
