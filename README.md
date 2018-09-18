@@ -14,7 +14,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 ```
     (add-hook 'text-mode-hook
                (lambda ()
-                (variable-pitch-mode 1))
+                (variable-pitch-mode 1)))
 ```
 - **Custom fonts**: Choose your fonts/font sizes before loading the theme with
 ```
