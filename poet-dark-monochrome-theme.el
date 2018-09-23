@@ -1,4 +1,4 @@
-;;; poet-monochrome-theme.el -- A dark monochrome theme for prose.
+;;; poet-dark-monochrome-theme.el -- A dark monochrome theme for prose.
 
 ;; Copyright 2018-now Kunal Bhalla
 
@@ -40,15 +40,14 @@
 ;;         '("◉" "○"))
 ;;     (org-bullets 1)
 
-;;; Code
+;;; Code:
 
 (defvar poet--monospace-height
  (face-attribute 'fixed-pitch :height nil 'default)
- "The original height, maintained as a defvar to stay
-  constant across reloading the theme.")
+ "The original height stored as a defvar to stay constant across reloads.")
 
 (defun poet--height (multiplier)
- "Scale up the height according to the multiplier."
+ "Scale up the height according to the MULTIPLIER."
  (truncate (* poet--monospace-height multiplier)))
 (deftheme poet-dark-monochrome
   "A dark monochrome prose friendly theme.")
@@ -249,3 +248,4 @@
                 (file-name-directory load-file-name))))
 
 (provide-theme 'poet-dark-monochrome)
+;;; poet-dark-monochrome-theme ends here

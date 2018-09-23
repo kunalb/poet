@@ -354,15 +354,14 @@ code would be so much better for this.
 ;;         '("◉" "○"))
 ;;     (org-bullets 1)
 
-;;; Code
+;;; Code:
 
 (defvar poet--monospace-height
  (face-attribute 'fixed-pitch :height nil 'default)
- "The original height, maintained as a defvar to stay
-  constant across reloading the theme.")
+ "The original height stored as a defvar to stay constant across reloads.")
 
 (defun poet--height (multiplier)
- "Scale up the height according to the multiplier."
+ "Scale up the height according to the MULTIPLIER."
  (truncate (* poet--monospace-height multiplier)))
 #+END_SRC
 
@@ -508,6 +507,7 @@ code would be so much better for this.
 <<theme-postface>>
 
 (provide-theme 'poet)
+;;; poet-theme.el ends here
 #+END_SRC
 
 ** Dark Poet (under construction)
@@ -603,6 +603,7 @@ code would be so much better for this.
 <<theme-postface>>
 
 (provide-theme 'poet-dark)
+;;; poet-dark-theme.el ends here
 #+END_SRC
 ** Monochrome Poet
 #+NAME: poet-monochrome-palette
@@ -638,6 +639,7 @@ code would be so much better for this.
 <<theme-postface>>
 
 (provide-theme 'poet-monochrome)
+;;; poet-monochrome-theme.el ends here
 #+END_SRC
 
 ** Dark Monochrome Poet
@@ -653,7 +655,7 @@ code would be so much better for this.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle poet-dark-monochrome-theme.el :noweb yes
-;;; poet-monochrome-theme.el -- A dark monochrome theme for prose.
+;;; poet-dark-monochrome-theme.el -- A dark monochrome theme for prose.
 
 <<theme-preface>>
 (deftheme poet-dark-monochrome
@@ -664,6 +666,7 @@ code would be so much better for this.
 <<theme-postface>>
 
 (provide-theme 'poet-dark-monochrome)
+;;; poet-dark-monochrome-theme ends here
 #+END_SRC
 
 * For simpler iteration
