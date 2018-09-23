@@ -510,6 +510,100 @@ code would be so much better for this.
 (provide-theme 'poet)
 #+END_SRC
 
+** Dark Poet (under construction)
+#+NAME: dark-poet-palette
+| Label                     | Color   |
+| fg                        | #EDE7CC |
+| bg                        | #151212 |
+| emph                      | #eeeeee |
+| sep                       | #000000 |
+| hlt                       | #000000 |
+| bg-hlt                    | #fff8e1 |
+| muted                     | #795548 |
+| meta                      | #4e342e |
+| link                      | #ff0000 |
+| link-underline            | #aa0000 |
+| vlink-underline           | #ffffff |
+| header                    | #ffffff |
+| button                    | #616161 |
+| glyph                     | #673AB7 |
+| cursor                    | #eeeeee |
+| paren-match-bg            | #ff1744 |
+| paren-match-fg            | #ffffff |
+| search-fg                 | #c2185b |
+| search-bg                 | #ffffff |
+| search-fail-bg            | #f8bbd0 |
+| tooltip-fg                | #111111 |
+| tooltip-bg                | #fff176 |
+| shadow                    | #999999 |
+| secondary-bg              | #fff59d |
+| trailing-bg               | #ff8a65 |
+| header-line-bg            | #e0e0e0 |
+| fci                       | #dedede |
+| lazy-hlt                  | #ffffff |
+| evil-rep-fg               | #ffffff |
+| evil-rep-bg               | #4e342e |
+| mode-line-fg              | #111111 |
+| header-line-bg            | #e0e0e0 |
+| mode-line-hlt             | #ffffff |
+| mode-line-inactive        | #888888 |
+| builtin                   | #795548 |
+| string                    | #6C3082 |
+| function-name             | #388E3C |
+| keyword                   | #bf360c |
+| constant                  | #0288D1 |
+| type                      | #3f51b5 |
+| variable                  | #455A64 |
+| org-meta                  | #8D6E63 |
+| org-document-info         | #795548 |
+| org-table                 | #2C252A |
+| org-quote-fg              | #4A148C |
+| org-quote-bg              | #e0e0e0 |
+| org-date                  | #444444 |
+| org-title                 | #ffffff |
+| org-title-underline       | #ffffff |
+| org-checkbox              | #aaaaaa |
+| org-scheduled             | #333333 |
+| org-scheduled-today       | #111111 |
+| org-done                  | #388E3C |
+| org-todo                  | #BF360C |
+| org-tag                   | #777777 |
+| org-block-line            | #000000 |
+| org-block-bg              | #000000 |
+| org-agenda-structure-fg   | #555555 |
+| org-agenda-structure-bg   | #e0e0e0 |
+| org-agenda-today-fg       | #000000 |
+| org-agenda-today-bg       | #eeeeee |
+| org-special-keyword       | #777777 |
+| org-sched-prev            | #222222 |
+| org-agenda-done           | #777777 |
+| hl-line                   | #efefef |
+| linum-hlt                 | #555555 |
+| linum                     | #aaaaaa |
+| markdown-markup           | #8D6E63 |
+| markdown-metadata         | #777777 |
+| markdown-language         | #7b1fa2 |
+| markdown-list             | #000000 |
+| markdown-code-bg          | #e0e0e0 |
+| markdown-pre-bg           | #e0e0e0 |
+| markdown-header-delimiter | #8D6E63 |
+| imenu                     | #4e342e |
+
+
+;;; #+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
+#+BEGIN_SRC emacs-lisp
+;;; poet-dark-theme.el -- A dark theme for prose.
+
+<<theme-preface>>
+(deftheme poet-dark
+  "A prose friendly dark theme.")
+
+<<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
+
+<<theme-postface>>
+
+(provide-theme 'poet-dark)
+#+END_SRC
 ** Monochrome Poet
 #+NAME: poet-monochrome-palette
 #+BEGIN_SRC emacs-lisp :var base-palette=poet-palette
@@ -570,4 +664,19 @@ code would be so much better for this.
 <<theme-postface>>
 
 (provide-theme 'poet-dark-monochrome)
+#+END_SRC
+
+* For simpler iteration
+#+BEGIN_SRC emacs-lisp
+(defun poet-refresh-theme ()
+  (interactive)
+  (org-babel-tangle)
+  (load-theme
+    (car custom-enabled-themes)
+    t))
+(add-hook
+   'after-save-hook
+   'poet-refresh-theme
+    nil
+    t)
 #+END_SRC
