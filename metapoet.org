@@ -496,7 +496,7 @@ code would be so much better for this.
 | imenu                     | #4e342e |
 
 #+BEGIN_SRC emacs-lisp :tangle poet-theme.el :noweb yes
-;;; poet-theme.el -- A theme for prose.
+;;; poet-theme.el --- A theme for prose.
 
 <<theme-preface>>
 (deftheme poet
@@ -592,7 +592,7 @@ code would be so much better for this.
 
 ;;; #+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
 #+BEGIN_SRC emacs-lisp
-;;; poet-dark-theme.el -- A dark theme for prose.
+;;; poet-dark-theme.el --- A dark theme for prose.
 
 <<theme-preface>>
 (deftheme poet-dark
@@ -628,7 +628,7 @@ code would be so much better for this.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle poet-monochrome-theme.el :noweb yes
-;;; poet-monochrome-theme.el -- A monochrome theme for prose.
+;;; poet-monochrome-theme.el --- A monochrome theme for prose.
 
 <<theme-preface>>
 (deftheme poet-monochrome
@@ -655,7 +655,7 @@ code would be so much better for this.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle poet-dark-monochrome-theme.el :noweb yes
-;;; poet-dark-monochrome-theme.el -- A dark monochrome theme for prose.
+;;; poet-dark-monochrome-theme.el --- A dark monochrome theme for prose.
 
 <<theme-preface>>
 (deftheme poet-dark-monochrome

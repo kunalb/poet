@@ -1,4 +1,4 @@
-;;; poet-theme.el -- A theme for prose.
+;;; poet-theme.el --- A theme for prose.
 
 ;; Copyright 2018-now Kunal Bhalla
 

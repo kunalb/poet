@@ -1,4 +1,4 @@
-;;; poet-dark-monochrome-theme.el -- A dark monochrome theme for prose.
+;;; poet-dark-monochrome-theme.el --- A dark monochrome theme for prose.
 
 ;; Copyright 2018-now Kunal Bhalla
 
