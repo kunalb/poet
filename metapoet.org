@@ -47,6 +47,7 @@ code would be so much better for this.
    :foreground @link)
   (link-visited
    :inherit link
+   :foreground @link
    :underline (:color @vlink-underline :style line))
   (cursor
    :background @cursor)
@@ -71,7 +72,8 @@ code would be so much better for this.
   (trailing-whitespace
    :background @trailing-bg)
   (lazy-highlight
-   :background @lazy-hlt)
+   :foreground @lazy-hlt-fg
+   :background @lazy-hlt-bg)
   (next-error
    :inherit region)
   (window-divider
@@ -107,7 +109,7 @@ code would be so much better for this.
    :underline @sep
    :inherit mode-line)
   (mode-line-buffer-id
-   :underline t)
+   :weight bold)
   (mode-line-emphasis
    :weight bold)
   (mode-line-highlight
@@ -174,6 +176,9 @@ code would be so much better for this.
    :foreground @org-meta)
   (org-document-info-keyword
    :inherit fixed-pitch
+   :foreground @org-document-info)
+  (org-document-info
+   :inherit default
    :foreground @org-document-info)
   (org-verbatim ; inline code
    :inherit fixed-pitch)
@@ -250,18 +255,26 @@ code would be so much better for this.
    :foreground @org-sched-prev)
   (org-agenda-done
    :foreground @org-agenda-done)
+  (org-footnote
+   :foreground @link)
 
 ;; hl-line
   (hl-line
    :background @hl-line)
 
-;; linum
+;; linum / line numbers
   (linum-highlight-face
-   :inherit default
+   :inherit fixed-pitch
    :foreground @linum-hlt)
   (linum
-   :inherit default
+   :inherit fixed-pitch
    :foreground @linum)
+  (line-number
+   :inherit fixed-pitch
+   :foreground @linum)
+  (line-number-current-line
+   :inherit fixed-pitch
+   :foreground @linum-hlt)
 
 ;; Markdown
   ,@(generate-numbered-faces "markdown-header-face-" 1 8
@@ -304,11 +317,13 @@ code would be so much better for this.
   (markdown-url-face
    :inherit fixed-pitch
    :foreground @link)
-
 ;; imenu
   ,@(generate-numbered-faces
        "imenu-list-entry-face-" 0 5
-       '(:foreground @imenu)))
+       '(:foreground @imenu))
+;; helm
+  (helm-source-header
+   :height *1))
 #+END_SRC
 
 * Preface
@@ -444,9 +459,9 @@ code would be so much better for this.
 | shadow                    | #999999 |
 | secondary-bg              | #fff59d |
 | trailing-bg               | #ff8a65 |
-| header-line-bg            | #e0e0e0 |
 | fci                       | #dedede |
-| lazy-hlt                  | #ffffff |
+| lazy-hlt-fg               | #000000 |
+| lazy-hlt-bg               | #ffffff |
 | evil-rep-fg               | #ffffff |
 | evil-rep-bg               | #4e342e |
 | mode-line-fg              | #111111 |
@@ -510,66 +525,66 @@ code would be so much better for this.
 ;;; poet-theme.el ends here
 #+END_SRC
 
-** Dark Poet (under construction)
+** Dark Poet (beta)
 #+NAME: dark-poet-palette
 | Label                     | Color   |
-| fg                        | #EDE7CC |
-| bg                        | #151212 |
+| fg                        | #EDE7dd |
+| bg                        | #181008 |
 | emph                      | #eeeeee |
 | sep                       | #000000 |
 | hlt                       | #000000 |
-| bg-hlt                    | #fff8e1 |
-| muted                     | #795548 |
-| meta                      | #4e342e |
-| link                      | #ff0000 |
-| link-underline            | #aa0000 |
+| bg-hlt                    | #111111 |
+| muted                     | #aaaaaa |
+| meta                      | #ede7dd |
+| link                      | #ffdba5 |
+| link-underline            | #ffdba5 |
 | vlink-underline           | #ffffff |
-| header                    | #ffffff |
-| button                    | #616161 |
-| glyph                     | #673AB7 |
-| cursor                    | #eeeeee |
+| header                    | #ceb39e |
+| button                    | #aaaaaa |
+| glyph                     | #f7ffd1 |
+| cursor                    | #FFD5BE |
 | paren-match-bg            | #ff1744 |
 | paren-match-fg            | #ffffff |
-| search-fg                 | #c2185b |
-| search-bg                 | #ffffff |
+| search-fg                 | #ffffff |
+| search-bg                 | #fb6542 |
 | search-fail-bg            | #f8bbd0 |
 | tooltip-fg                | #111111 |
 | tooltip-bg                | #fff176 |
 | shadow                    | #999999 |
-| secondary-bg              | #fff59d |
+| secondary-bg              | #000000 |
 | trailing-bg               | #ff8a65 |
-| header-line-bg            | #e0e0e0 |
 | fci                       | #dedede |
-| lazy-hlt                  | #ffffff |
+| lazy-hlt-fg               | #000000 |
+| lazy-hlt-bg               | #ffffff |
 | evil-rep-fg               | #ffffff |
 | evil-rep-bg               | #4e342e |
-| mode-line-fg              | #111111 |
-| header-line-bg            | #e0e0e0 |
-| mode-line-hlt             | #ffffff |
+| mode-line-fg              | #edd3c4 |
+| header-line-bg            | #111111 |
+| mode-line-hlt             | #000000 |
 | mode-line-inactive        | #888888 |
-| builtin                   | #795548 |
-| string                    | #6C3082 |
-| function-name             | #388E3C |
-| keyword                   | #bf360c |
-| constant                  | #0288D1 |
-| type                      | #3f51b5 |
-| variable                  | #455A64 |
-| org-meta                  | #8D6E63 |
-| org-document-info         | #795548 |
-| org-table                 | #2C252A |
+| builtin                   | #b85750 |
+| string                    | #dddddd |
+| function-name             | #80bd9e |
+| keyword                   | #c1caa1 |
+| constant                  | #90afc5 |
+| type                      | #cfa6a8 |
+| variable                  | #ffa575 |
+| org-meta                  | #c6b6ad |
+| org-document-info         | #c6b6ad |
+| org-table                 | #171716 |
 | org-quote-fg              | #4A148C |
 | org-quote-bg              | #e0e0e0 |
-| org-date                  | #444444 |
-| org-title                 | #ffffff |
-| org-title-underline       | #ffffff |
-| org-checkbox              | #aaaaaa |
+| org-date                  | #c6b6ad |
+| org-title                 | #ee7e38 |
+| org-title-underline       | #ee7e38  |
+| org-checkbox              | #999999 |
 | org-scheduled             | #333333 |
 | org-scheduled-today       | #111111 |
-| org-done                  | #388E3C |
-| org-todo                  | #BF360C |
-| org-tag                   | #777777 |
-| org-block-line            | #000000 |
-| org-block-bg              | #000000 |
+| org-done                  | #5EE300 |
+| org-todo                  | #FF3D00 |
+| org-tag                   | #aaaaaa |
+| org-block-line            | #070706 |
+| org-block-bg              | #171716 |
 | org-agenda-structure-fg   | #555555 |
 | org-agenda-structure-bg   | #e0e0e0 |
 | org-agenda-today-fg       | #000000 |
@@ -578,25 +593,23 @@ code would be so much better for this.
 | org-sched-prev            | #222222 |
 | org-agenda-done           | #777777 |
 | hl-line                   | #efefef |
-| linum-hlt                 | #555555 |
-| linum                     | #aaaaaa |
+| linum-hlt                 | #bbbbbb |
+| linum                     | #555555 |
 | markdown-markup           | #8D6E63 |
 | markdown-metadata         | #777777 |
-| markdown-language         | #7b1fa2 |
-| markdown-list             | #000000 |
-| markdown-code-bg          | #e0e0e0 |
-| markdown-pre-bg           | #e0e0e0 |
+| markdown-language         | #BE8CD4 |
+| markdown-list             | #ffffff |
+| markdown-code-bg          | #171716 |
+| markdown-pre-bg           | #171716 |
 | markdown-header-delimiter | #8D6E63 |
 | imenu                     | #4e342e |
 
-
-;;; #+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
 ;;; poet-dark-theme.el --- A dark theme for prose.
 
 <<theme-preface>>
 (deftheme poet-dark
-  "A prose friendly dark theme.")
+  "A prose friendly dark theme (beta).")
 
 <<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
 
