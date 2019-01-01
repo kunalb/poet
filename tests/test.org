@@ -31,3 +31,11 @@ CLOSED: [2018-04-18 Wed 23:46]
 | With | Values |
 |    1 |      2 |
 |    3 |      4 |
+
+* Agenda testing
+** TODO Update poet-dark to support agenda colors correctly
+SCHEDULED: <2019-01-01 Tue>
+** TODO The bright white on brown color scheme hurts my eyes!
+SCHEDULED: <2019-01-04 Fri>
+** DONE Upload a beta version of poet dark
+SCHEDULED: <2018-12-31 Mon>
