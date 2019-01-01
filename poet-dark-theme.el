@@ -57,7 +57,7 @@
       (emph "#eeeeee")
       (sep "#000000")
       (hlt "#000000")
-      (bg-hlt "#111111")
+      (bg-hlt "#012c32")
       (muted "#aaaaaa")
       (meta "#ede7dd")
       (link "#ffdba5")
