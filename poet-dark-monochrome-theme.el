@@ -186,6 +186,7 @@
   `(org-document-info-keyword ((t (:inherit fixed-pitch :foreground ,org-document-info))))
   `(org-document-info ((t (:inherit default :foreground ,org-document-info))))
   `(org-verbatim ((t (:inherit fixed-pitch))))
+  `(org-code ((t (:inherit fixed-pitch))))
   `(org-table ((t (:inherit fixed-pitch :background ,org-table))))
   `(org-formula ((t (:inherit org-table :height ,(poet--height 1)))))
   `(org-quote ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))

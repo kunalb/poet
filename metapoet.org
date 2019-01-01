@@ -182,6 +182,8 @@ code would be so much better for this.
    :foreground @org-document-info)
   (org-verbatim ; inline code
    :inherit fixed-pitch)
+  (org-code
+   :inherit fixed-pitch)
   (org-table
    :inherit fixed-pitch
    :background @org-table)
