@@ -33,9 +33,12 @@ CLOSED: [2018-04-18 Wed 23:46]
 |    3 |      4 |
 
 * Agenda testing
-** TODO Update poet-dark to support agenda colors correctly
-SCHEDULED: <2019-01-01 Tue>
-** TODO The bright white on brown color scheme hurts my eyes!
+Update dates according to current date, but make sure to check
+** TODO Work to do today!
+SCHEDULED: <2019-01-03 Thu>
+** TODO Work to do in the future!
 SCHEDULED: <2019-01-04 Fri>
-** DONE Upload a beta version of poet dark
+** DONE Done work in the past!
 SCHEDULED: <2018-12-31 Mon>
+** TODO Undone work carrying over from the past!
+SCHEDULED: <2019-01-01 Tue>

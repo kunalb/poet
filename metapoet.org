@@ -212,10 +212,6 @@ code would be so much better for this.
    :inherit fixed-pitch
    :weight bold
    :foreground @org-checkbox)
-  (org-scheduled
-   :foreground @org-scheduled)
-  (org-scheduled-today
-   :foreground @org-scheduled-today)
   (org-done
    :inherit fixed-pitch
    :foreground @org-done)
@@ -243,12 +239,16 @@ code would be so much better for this.
    :background @bg
    :box (:line-width 3 :color @bg)
    :underline @org-agenda-structure-bg)
+  (org-scheduled
+   :foreground @org-scheduled)
+  (org-scheduled-today
+   :foreground @org-scheduled-today)
   (org-agenda-date-weekend
    :inherit org-agenda-structure)
   (org-agenda-date-today
+   :box (:line-width 3 :color @org-agenda-today-bg)
    :foreground @org-agenda-today-fg
-   :background @org-agenda-today-bg
-   :underline @org-agenda-today-bg)
+   :background @org-agenda-today-bg)
   (org-special-keyword
    :inherit fixed-pitch
    :foreground @org-special-keyword)
@@ -497,7 +497,7 @@ code would be so much better for this.
 | org-agenda-today-fg       | #000000 |
 | org-agenda-today-bg       | #eeeeee |
 | org-special-keyword       | #777777 |
-| org-sched-prev            | #222222 |
+| org-sched-prev            | #3f0000 |
 | org-agenda-done           | #777777 |
 | hl-line                   | #efefef |
 | linum-hlt                 | #555555 |
@@ -532,7 +532,7 @@ code would be so much better for this.
 | fg                        | #EDE7dd |
 | bg                        | #181008 |
 | emph                      | #eeeeee |
-| sep                       | #000000 |
+| sep                       | #444444 |
 | hlt                       | #000000 |
 | bg-hlt                    | #012c32 |
 | muted                     | #aaaaaa |
@@ -579,7 +579,7 @@ code would be so much better for this.
 | org-title                 | #ee7e38 |
 | org-title-underline       | #ee7e38 |
 | org-checkbox              | #999999 |
-| org-scheduled             | #aaaaaa |
+| org-scheduled             | #dddddd |
 | org-scheduled-today       | #ffffff |
 | org-done                  | #5EE300 |
 | org-todo                  | #FF3D00 |
@@ -591,8 +591,8 @@ code would be so much better for this.
 | org-agenda-today-fg       | #dddddd |
 | org-agenda-today-bg       | #000000 |
 | org-special-keyword       | #777777 |
-| org-sched-prev            | #222222 |
-| org-agenda-done           | #777777 |
+| org-sched-prev            | #ffb6c1 |
+| org-agenda-done           | #b9ccb2 |
 | hl-line                   | #efefef |
 | linum-hlt                 | #bbbbbb |
 | linum                     | #555555 |
@@ -696,4 +696,4 @@ code would be so much better for this.
    'poet-refresh-theme
     nil
     t)
-#+END_SRC
+t+END_SRC
