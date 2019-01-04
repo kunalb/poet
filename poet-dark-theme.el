@@ -116,7 +116,7 @@
       (org-special-keyword "#777777")
       (org-sched-prev "#ffb6c1")
       (org-agenda-done "#b9ccb2")
-      (hl-line "#efefef")
+      (hl-line "#3d0000")
       (linum-hlt "#bbbbbb")
       (linum "#555555")
       (markdown-markup "#8D6E63")
