@@ -107,7 +107,7 @@
       (org-done "#388E3C")
       (org-todo "#BF360C")
       (org-tag "#777777")
-      (org-block-line "#d0d0d0")
+      (org-block-line "#c7c7c7")
       (org-block-bg "#e0e0e0")
       (org-agenda-structure-fg "#555555")
       (org-agenda-structure-bg "#e0e0e0")
