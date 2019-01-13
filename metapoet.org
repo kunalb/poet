@@ -527,7 +527,7 @@ code would be so much better for this.
 #+END_SRC
 
 ** Dark Poet
-#+NAME: dark-poet-palette
+#+NAME: poet-dark-palette
 | Label                     | Color   |
 | fg                        | #EDE7dd |
 | bg                        | #181008 |
@@ -612,7 +612,7 @@ code would be so much better for this.
 (deftheme poet-dark
   "A prose friendly dark theme.")
 
-<<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
+<<theme-definition(palette=poet-dark-palette, theme-name="poet-dark")>>
 
 <<theme-postface>>
 
@@ -658,13 +658,12 @@ code would be so much better for this.
 
 ** Dark Monochrome Poet
 #+NAME: poet-dark-monochrome-palette
-#+BEGIN_SRC emacs-lisp :var base-palette=poet-monochrome-palette
+#+BEGIN_SRC emacs-lisp :var base-palette=poet-dark-palette
 (cons
  (car base-palette)
  (mapcar
   (lambda (x)
-   `(,(car x) ,(apply 'color-rgb-to-hex
-                      (append (color-complement (cadr x)) '(2)))))
+   `(,(car x) ,(desaturate-color (cadr x))))
   (cdr base-palette)))
 #+END_SRC
 
