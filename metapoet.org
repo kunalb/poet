@@ -390,11 +390,12 @@ code would be so much better for this.
   (cond
    ((not x) '())
    ((listp x) (cons (process (car x)) (process (cdr x))))
+   ((eq 'fixed-pitch-height x) "(lambda (base) base)")
    ((eq 'variable-pitch-family x) ",(face-attribute 'variable-pitch :family)") ; hack hack hack
    ((and (symbolp x) (string-prefix-p "@" (symbol-name x)))
     (concat "," (substring (symbol-name x) 1)))
    ((and (symbolp x) (string-prefix-p "*" (symbol-name x)))
-    (concat ",(poet--height " (substring (symbol-name x) 1) ")"))
+    (concat "(lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) " (substring (symbol-name x) 1) ")))"))
    ((stringp x) (concat "\"" x "\""))
    (t x)))
 
