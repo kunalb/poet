@@ -526,7 +526,7 @@ code would be so much better for this.
 ;;; poet-theme.el ends here
 #+END_SRC
 
-** Dark Poet (beta)
+** Dark Poet
 #+NAME: dark-poet-palette
 | Label                     | Color   |
 | fg                        | #EDE7dd |
@@ -610,7 +610,7 @@ code would be so much better for this.
 
 <<theme-preface>>
 (deftheme poet-dark
-  "A prose friendly dark theme (beta).")
+  "A prose friendly dark theme.")
 
 <<theme-definition(palette=dark-poet-palette, theme-name="poet-dark")>>
 

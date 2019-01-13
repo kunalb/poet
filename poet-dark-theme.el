@@ -50,7 +50,7 @@
  "Scale up the height according to the MULTIPLIER."
  (truncate (* poet--monospace-height multiplier)))
 (deftheme poet-dark
-  "A prose friendly dark theme (beta).")
+  "A prose friendly dark theme.")
 
 (let ((fg "#EDE7dd")
       (bg "#181008")
