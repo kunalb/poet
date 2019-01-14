@@ -4,7 +4,9 @@ A light emacs theme that's well suited for prose: particularly org-mode and mark
 ## Motivation
 The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. For example,
 
+<p align="center">
 ![Screenshot](https://github.com/kunalb/poet/raw/master/images/poet.gif)
+</p>
 
 ## Set up
 - **Installation**:
