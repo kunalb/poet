@@ -4,7 +4,7 @@ A light emacs theme that's well suited for prose: particularly org-mode and mark
 ## Motivation
 The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. For example,
 
-![Screenshot](https://github.com/kunalb/poet/raw/master/screenshots.png)
+![Screenshot](https://github.com/kunalb/poet/raw/master/images/screenshots.png)
 
 ## Set up
 - **Installation**:
@@ -42,7 +42,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 ```
 
 ## [Reddit](https://www.reddit.com/r/emacs/comments/9e01wf/share_your_modern_emacs/e5lpfmy/) reviews poet
-![Reddit](https://github.com/kunalb/poet/raw/master/reddit.png)
+![Reddit](https://github.com/kunalb/poet/raw/master/images/reddit.png)
 
 ## Warning
 - Exclusively aimed at graphical emacs
@@ -56,13 +56,14 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 - [x] Publish v2 to Melpa
 ---
 - [x] Create a poet-dark mode with a yellow/white/black scheme.
-- [ ] Add a dark brown theme
+- [x] Add a dark brown theme
+---
 - [ ] Add support for customizing font faces
 - [ ] Document support for additional modes.
 - [ ] Publish v3 to Melpa.
 
 
 ## More Screenshots
-![Org](https://github.com/kunalb/poet/raw/master/org.png)
-![Markdown 1](https://github.com/kunalb/poet/raw/master/md1.png)
-![Markdown 2](https://github.com/kunalb/poet/raw/master/md2.png)
+![Org](https://github.com/kunalb/poet/raw/master/images/org.png)
+![Markdown 1](https://github.com/kunalb/poet/raw/master/images/md1.png)
+![Markdown 2](https://github.com/kunalb/poet/raw/master/images/md2.png)
