@@ -608,7 +608,7 @@ code would be so much better for this.
 | markdown-code-bg          | #171716 |
 | markdown-pre-bg           | #171716 |
 | markdown-header-delimiter | #8D6E63 |
-| imenu                     | #4e342e |
+| imenu                     | #ceb39e |
 
 #+BEGIN_SRC emacs-lisp :tangle poet-dark-theme.el :noweb yes
 ;;; poet-dark-theme.el --- A dark theme for prose.

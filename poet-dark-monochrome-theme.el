@@ -126,7 +126,7 @@
       (markdown-code-bg "#161616")
       (markdown-pre-bg "#161616")
       (markdown-header-delimiter "#787878")
-      (imenu "#3e3e3e"))
+      (imenu "#b6b6b6"))
  (custom-theme-set-faces 'poet-dark-monochrome
   `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
   `(default ((t (:background ,bg :foreground ,fg))))
