@@ -189,6 +189,7 @@
   `(org-code ((t (:inherit fixed-pitch))))
   `(org-table ((t (:inherit fixed-pitch :background ,org-table))))
   `(org-formula ((t (:inherit org-table :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1)))))))
+  `(org-verse ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))
   `(org-quote ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))
   `(org-hide ((t (:inherit fixed-pitch :foreground ,bg))))
   `(org-indent ((t (:inherit org-hide))))

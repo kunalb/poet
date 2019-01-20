@@ -190,6 +190,10 @@ code would be so much better for this.
   (org-formula
    :inherit org-table
    :height *1)
+  (org-verse
+   :inherit default
+   :foreground @org-quote-fg
+   :background @org-quote-bg)
   (org-quote
    :inherit default
    :foreground @org-quote-fg
@@ -574,8 +578,8 @@ code would be so much better for this.
 | org-meta                  | #c6b6ad |
 | org-document-info         | #c6b6ad |
 | org-table                 | #171716 |
-| org-quote-fg              | #4A148C |
-| org-quote-bg              | #e0e0e0 |
+| org-quote-fg              | #e6e6fa |
+| org-quote-bg              | #171716 |
 | org-date                  | #c6b6ad |
 | org-title                 | #ee7e38 |
 | org-title-underline       | #ee7e38 |

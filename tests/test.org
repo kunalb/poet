@@ -32,6 +32,15 @@ CLOSED: [2018-04-18 Wed 23:46]
 |    1 |      2 |
 |    3 |      4 |
 
+* Quotations are important too
+#+BEGIN_VERSE
+This is a verse
+#+END_VERSE
+
+#+BEGIN_QUOTE
+And this is a quote
+#+END_QUOTE
+
 * Agenda testing
 Update dates according to current date, but make sure to check
 ** TODO Work to do today!
