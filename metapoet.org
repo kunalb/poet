@@ -122,6 +122,7 @@ code would be so much better for this.
 
 ;; Syntax
   (error
+   :foreground @error
    :inherit fixed-pitch)
   (font-lock-comment-face
    :foreground @muted
@@ -474,6 +475,7 @@ code would be so much better for this.
 | header-line-bg            | #e0e0e0 |
 | mode-line-hlt             | #ffffff |
 | mode-line-inactive        | #888888 |
+| error                     | #df5286 |
 | builtin                   | #795548 |
 | string                    | #6C3082 |
 | function-name             | #388E3C |
@@ -568,6 +570,7 @@ code would be so much better for this.
 | header-line-bg            | #111111 |
 | mode-line-hlt             | #000000 |
 | mode-line-inactive        | #888888 |
+| error                     | #df5286 |
 | builtin                   | #b85750 |
 | string                    | #dddddd |
 | function-name             | #80bd9e |

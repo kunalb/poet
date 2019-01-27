@@ -5,8 +5,16 @@
 ** Lots of different features
 Just testing out different behaviours in org mode.
 
+#+BEGIN_SRC c
+int main(void) {
+  return 0;
+}
+#+END_SRC
+
 #+BEGIN_SRC elisp
 (like code)
+
+;;;###autoload
 #+END_SRC
 
 #+BEGIN_EXAMPLE
