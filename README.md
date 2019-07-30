@@ -2,7 +2,7 @@
 A light emacs theme that's well suited for prose: particularly org-mode and markdown-mode; or any mode that works well with `variable-pitch` mode.
 
 ## Motivation
-The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. For example,
+The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. I wrote a  about building poet at https://explog.in/notes/poet.html. For example,
 
 <p align="center">
   <img title="Screenshots" alt="Screenshots" src="https://github.com/kunalb/poet/raw/master/images/poet.gif" />
