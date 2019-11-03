@@ -349,6 +349,10 @@ code would be so much better for this.
 ;; org-mode and markdown-mode.  Code blocks, tables, etc are
 ;; formatted in monospace text with the appropriate backgrounds.
 
+;; Theme Customizations
+;; - `poet-variable-headers`
+;;    Enable / disable different text heights for different faces.
+
 ;; Recommended customizations for using this theme
 ;;
 ;; - Set up the base fonts you'd like to use in Emacs before loading Poet
@@ -359,9 +363,9 @@ code would be so much better for this.
 ;;   rendering.
 ;;
 ;; - Enable variable pitch mode for editing text
-;; (add-hook 'text-mode-hook
-;;            (lambda ()
-;;             (variable-pitch-mode 1))
+;;     (add-hook 'text-mode-hook
+;;                (lambda ()
+;;                 (variable-pitch-mode 1))
 ;;
 ;; - Some other modes I like to enable/disable
 ;;     (olivetti-mode 1)        ;; Centers text in the buffer
@@ -381,14 +385,26 @@ code would be so much better for this.
  (face-attribute 'fixed-pitch :height nil 'default)
  "The original height stored as a defvar to stay constant across reloads.")
 
+(defgroup poet-theme nil
+ "Customizations to change the behavior of poet")
+
+(defcustom poet-variable-headers t
+ "Use varying sizes for headers in org and markdown"
+  :group 'poet-theme
+  :type 'boolean)
+
 (defun poet--height (multiplier)
- "Scale up the height according to the MULTIPLIER."
- (truncate (* poet--monospace-height multiplier)))
+  "Returns the height as MULTIPLIER * monospace-height."
+  (if poet-variable-headers
+      (truncate (* poet--monospace-height multiplier))
+    poet--monospace-height))
 #+END_SRC
 
 * Theme Creator
 #+NAME: theme-definition
 #+BEGIN_SRC emacs-lisp :var palette='() structure=structure theme-name=""
+
+
 (defun process (x)
   "Process the face list to replace color names with symbols,
    and heights with function values."
@@ -400,7 +416,7 @@ code would be so much better for this.
    ((and (symbolp x) (string-prefix-p "@" (symbol-name x)))
     (concat "," (substring (symbol-name x) 1)))
    ((and (symbolp x) (string-prefix-p "*" (symbol-name x)))
-    (concat "(lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) " (substring (symbol-name x) 1) ")))"))
+    (concat "(lambda (_x) (poet--height " (substring (symbol-name x) 1) "))"))
    ((stringp x) (concat "\"" x "\""))
    (t x)))
 

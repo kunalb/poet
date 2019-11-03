@@ -14,6 +14,10 @@
 ;; org-mode and markdown-mode.  Code blocks, tables, etc are
 ;; formatted in monospace text with the appropriate backgrounds.
 
+;; Theme Customizations
+;; - `poet-variable-headers`
+;;    Enable / disable different text heights for different faces.
+
 ;; Recommended customizations for using this theme
 ;;
 ;; - Set up the base fonts you'd like to use in Emacs before loading Poet
@@ -24,9 +28,9 @@
 ;;   rendering.
 ;;
 ;; - Enable variable pitch mode for editing text
-;; (add-hook 'text-mode-hook
-;;            (lambda ()
-;;             (variable-pitch-mode 1))
+;;     (add-hook 'text-mode-hook
+;;                (lambda ()
+;;                 (variable-pitch-mode 1))
 ;;
 ;; - Some other modes I like to enable/disable
 ;;     (olivetti-mode 1)        ;; Centers text in the buffer
@@ -46,9 +50,19 @@
  (face-attribute 'fixed-pitch :height nil 'default)
  "The original height stored as a defvar to stay constant across reloads.")
 
+(defgroup poet-theme nil
+ "Customizations to change the behavior of poet")
+
+(defcustom poet-variable-headers t
+ "Use varying sizes for headers in org and markdown"
+  :group 'poet-theme
+  :type 'boolean)
+
 (defun poet--height (multiplier)
- "Scale up the height according to the MULTIPLIER."
- (truncate (* poet--monospace-height multiplier)))
+  "Returns the height as MULTIPLIER * monospace-height."
+  (if poet-variable-headers
+      (truncate (* poet--monospace-height multiplier))
+    poet--monospace-height))
 (deftheme poet-dark-monochrome
   "A dark monochrome prose friendly theme.")
 
@@ -129,7 +143,7 @@
       (markdown-header-delimiter "#777777")
       (imenu "#b5b5b5"))
  (custom-theme-set-faces 'poet-dark-monochrome
-  `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
+  `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height (lambda (_x) (poet--height 1.23))))))
   `(default ((t (:background ,bg :foreground ,fg))))
   `(italic ((t (:foreground ,emph :slant italic))))
   `(highlight ((t (:background ,hlt :overline nil))))
@@ -175,31 +189,31 @@
   `(font-lock-type-face ((t (:foreground ,type :inherit fixed-pitch))))
   `(font-lock-variable-name-face ((t (:inherit fixed-pitch :foreground ,variable))))
   `(font-lock-warning-face ((t (:inherit error))))
-  `(org-level-1 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.5)))))))
-  `(org-level-2 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.4)))))))
-  `(org-level-3 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.3)))))))
-  `(org-level-4 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(org-level-5 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(org-level-6 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(org-level-7 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(org-level-8 ((t (:inherit default :foreground ,header :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
+  `(org-level-1 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.5))))))
+  `(org-level-2 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.4))))))
+  `(org-level-3 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.3))))))
+  `(org-level-4 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.23))))))
+  `(org-level-5 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.23))))))
+  `(org-level-6 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.23))))))
+  `(org-level-7 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.23))))))
+  `(org-level-8 ((t (:inherit default :foreground ,header :height (lambda (_x) (poet--height 1.23))))))
   `(org-meta-line ((t (:inherit fixed-pitch :foreground ,org-meta))))
   `(org-document-info-keyword ((t (:inherit fixed-pitch :foreground ,org-document-info))))
   `(org-document-info ((t (:inherit default :foreground ,org-document-info))))
   `(org-verbatim ((t (:inherit fixed-pitch))))
   `(org-code ((t (:inherit fixed-pitch))))
   `(org-table ((t (:inherit fixed-pitch :background ,org-table))))
-  `(org-formula ((t (:inherit org-table :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1)))))))
+  `(org-formula ((t (:inherit org-table :height (lambda (_x) (poet--height 1))))))
   `(org-verse ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))
   `(org-quote ((t (:inherit default :foreground ,org-quote-fg :background ,org-quote-bg))))
   `(org-hide ((t (:inherit fixed-pitch :foreground ,bg))))
   `(org-indent ((t (:inherit org-hide))))
   `(org-date ((t (:inherit fixed-pitch :foreground ,org-date :underline nil))))
-  `(org-document-title ((t (:inherit default :foreground ,org-title :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.8))) :underline (:color ,org-title-underline)))))
+  `(org-document-title ((t (:inherit default :foreground ,org-title :height (lambda (_x) (poet--height 1.8)) :underline (:color ,org-title-underline)))))
   `(org-checkbox ((t (:inherit fixed-pitch :weight bold :foreground ,org-checkbox))))
   `(org-done ((t (:inherit fixed-pitch :foreground ,org-done))))
   `(org-todo ((t (:inherit fixed-pitch :foreground ,org-todo))))
-  `(org-tag ((t (:inherit fixed-pitch :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1))) :foreground ,org-tag))))
+  `(org-tag ((t (:inherit fixed-pitch :height (lambda (_x) (poet--height 1)) :foreground ,org-tag))))
   `(org-block-begin-line ((t (:inherit fixed-pitch :background ,org-block-line))))
   `(org-block-end-line ((t (:inherit fixed-pitch :background ,org-block-line))))
   `(org-block ((t (:background ,org-block-bg :inherit fixed-pitch))))
@@ -218,18 +232,18 @@
   `(linum ((t (:inherit fixed-pitch :foreground ,linum))))
   `(line-number ((t (:inherit fixed-pitch :foreground ,linum))))
   `(line-number-current-line ((t (:inherit fixed-pitch :foreground ,linum-hlt))))
-  `(markdown-header-face-1 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.5)))))))
-  `(markdown-header-face-2 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.4)))))))
-  `(markdown-header-face-3 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.3)))))))
-  `(markdown-header-face-4 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(markdown-header-face-5 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(markdown-header-face-6 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(markdown-header-face-7 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
-  `(markdown-header-face-8 ((t (:foreground ,header :inherit default :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1.23)))))))
+  `(markdown-header-face-1 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.5))))))
+  `(markdown-header-face-2 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.4))))))
+  `(markdown-header-face-3 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.3))))))
+  `(markdown-header-face-4 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.23))))))
+  `(markdown-header-face-5 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.23))))))
+  `(markdown-header-face-6 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.23))))))
+  `(markdown-header-face-7 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.23))))))
+  `(markdown-header-face-8 ((t (:foreground ,header :inherit default :height (lambda (_x) (poet--height 1.23))))))
   `(markdown-markup-face ((t (:inherit fixed-pitch :foreground ,markdown-markup))))
   `(markdown-inline-code-face ((t (:inherit fixed-pitch))))
-  `(markdown-metadata-key-face ((t (:inherit fixed-pitch :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1))) :foreground ,markdown-metadata))))
-  `(markdown-metadata-value-face ((t (:inherit fixed-pitch :height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1))) :foreground ,fg))))
+  `(markdown-metadata-key-face ((t (:inherit fixed-pitch :height (lambda (_x) (poet--height 1)) :foreground ,markdown-metadata))))
+  `(markdown-metadata-value-face ((t (:inherit fixed-pitch :height (lambda (_x) (poet--height 1)) :foreground ,fg))))
   `(markdown-language-keyword-face ((t (:foreground ,markdown-language))))
   `(markdown-list-face ((t (:inherit fixed-pitch :foreground ,markdown-list))))
   `(markdown-code-face ((t (:inherit fixed-pitch :foreground ,fg :background ,markdown-code-bg))))
@@ -243,7 +257,7 @@
   `(imenu-list-entry-face-3 ((t (:foreground ,imenu))))
   `(imenu-list-entry-face-4 ((t (:foreground ,imenu))))
   `(imenu-list-entry-face-5 ((t (:foreground ,imenu))))
-  `(helm-source-header ((t (:height (lambda (base) (truncate (* (face-attribute 'fixed-pitch :height nil 'default) 1))))))))
+  `(helm-source-header ((t (:height (lambda (_x) (poet--height 1)))))))
  (custom-theme-set-variables 'poet-dark-monochrome
   '(line-spacing .2)
   `(fci-rule-color ,fci)))
