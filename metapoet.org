@@ -329,7 +329,16 @@ code would be so much better for this.
        '(:foreground @imenu))
 ;; helm
   (helm-source-header
-   :height *1))
+   :height *1)
+;; EIN
+  (ein:cell-input-area
+   :background @org-block-bg)
+  (ein:cell-input-prompt
+   :foreground @org-tag
+   :background @bg)
+  (ein:cell-output-prompt
+   :foreground @org-tag
+   :background @bg))
 #+END_SRC
 
 * Preface

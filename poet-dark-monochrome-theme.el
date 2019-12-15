@@ -257,7 +257,10 @@
   `(imenu-list-entry-face-3 ((t (:foreground ,imenu))))
   `(imenu-list-entry-face-4 ((t (:foreground ,imenu))))
   `(imenu-list-entry-face-5 ((t (:foreground ,imenu))))
-  `(helm-source-header ((t (:height (lambda (_x) (poet--height 1)))))))
+  `(helm-source-header ((t (:height (lambda (_x) (poet--height 1))))))
+  `(ein:cell-input-area ((t (:background ,org-block-bg))))
+  `(ein:cell-input-prompt ((t (:foreground ,org-tag :background ,bg))))
+  `(ein:cell-output-prompt ((t (:foreground ,org-tag :background ,bg)))))
  (custom-theme-set-variables 'poet-dark-monochrome
   '(line-spacing .2)
   `(fci-rule-color ,fci)))
