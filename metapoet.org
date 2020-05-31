@@ -23,7 +23,7 @@ code would be so much better for this.
 ;; Basics
 `((variable-pitch
    :family variable-pitch-family
-   :height *1.23)
+   :height *1)
   (default
     :background @bg
     :foreground @fg)
@@ -338,7 +338,11 @@ code would be so much better for this.
    :background @bg)
   (ein:cell-output-prompt
    :foreground @org-tag
-   :background @bg))
+   :background @bg)
+;; Ivy
+  (ivy-org
+   :inherit fixed-pitch)
+)
 #+END_SRC
 
 * Preface
@@ -361,6 +365,9 @@ code would be so much better for this.
 ;; Theme Customizations
 ;; - `poet-variable-headers`
 ;;    Enable / disable different text heights for different faces.
+;; - `poet-variable-pitch-multiplier`
+;;    Relative size for the variable pitch font; modify for a better visual
+;;    balance.
 
 ;; Recommended customizations for using this theme
 ;;
@@ -397,16 +404,24 @@ code would be so much better for this.
 (defgroup poet-theme nil
  "Customizations to change the behavior of poet")
 
+(defcustom poet-variable-pitch-multiplier
+ 1.23
+ "The size multiplier to use for variable pitch.
+
+  Modify this to get a better balance between the monospace and
+  variable-pitch fonts you're using: a value around ~1.2 tends
+  to work well.")
+
 (defcustom poet-variable-headers t
  "Use varying sizes for headers in org and markdown"
   :group 'poet-theme
   :type 'boolean)
 
 (defun poet--height (multiplier)
-  "Returns the height as MULTIPLIER * monospace-height."
+  "Returns the height as MULTIPLIER * variable-pitch height."
   (if poet-variable-headers
-      (truncate (* poet--monospace-height multiplier))
-    poet--monospace-height))
+      (truncate (* poet-variable-pitch-multiplier (* poet--monospace-height multiplier)))
+    (truncate (* poet-variable-pitch-multiplier poet--monospace-height))))
 #+END_SRC
 
 * Theme Creator

@@ -17,6 +17,9 @@
 ;; Theme Customizations
 ;; - `poet-variable-headers`
 ;;    Enable / disable different text heights for different faces.
+;; - `poet-variable-pitch-multiplier`
+;;    Relative size for the variable pitch font; modify for a better visual
+;;    balance.
 
 ;; Recommended customizations for using this theme
 ;;
@@ -53,16 +56,24 @@
 (defgroup poet-theme nil
  "Customizations to change the behavior of poet")
 
+(defcustom poet-variable-pitch-multiplier
+ 1.23
+ "The size multiplier to use for variable pitch.
+
+  Modify this to get a better balance between the monospace and
+  variable-pitch fonts you're using: a value around ~1.2 tends
+  to work well.")
+
 (defcustom poet-variable-headers t
  "Use varying sizes for headers in org and markdown"
   :group 'poet-theme
   :type 'boolean)
 
 (defun poet--height (multiplier)
-  "Returns the height as MULTIPLIER * monospace-height."
+  "Returns the height as MULTIPLIER * variable-pitch height."
   (if poet-variable-headers
-      (truncate (* poet--monospace-height multiplier))
-    poet--monospace-height))
+      (truncate (* poet-variable-pitch-multiplier (* poet--monospace-height multiplier)))
+    (truncate (* poet-variable-pitch-multiplier poet--monospace-height))))
 (deftheme poet
   "A prose friendly theme.")
 
@@ -143,7 +154,7 @@
       (markdown-header-delimiter "#8D6E63")
       (imenu "#4e342e"))
  (custom-theme-set-faces 'poet
-  `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height (lambda (_x) (poet--height 1.23))))))
+  `(variable-pitch ((t (:family ,(face-attribute 'variable-pitch :family) :height (lambda (_x) (poet--height 1))))))
   `(default ((t (:background ,bg :foreground ,fg))))
   `(italic ((t (:foreground ,emph :slant italic))))
   `(highlight ((t (:background ,hlt :overline nil))))
@@ -260,7 +271,8 @@
   `(helm-source-header ((t (:height (lambda (_x) (poet--height 1))))))
   `(ein:cell-input-area ((t (:background ,org-block-bg))))
   `(ein:cell-input-prompt ((t (:foreground ,org-tag :background ,bg))))
-  `(ein:cell-output-prompt ((t (:foreground ,org-tag :background ,bg)))))
+  `(ein:cell-output-prompt ((t (:foreground ,org-tag :background ,bg))))
+  `(ivy-org ((t (:inherit fixed-pitch)))))
  (custom-theme-set-variables 'poet
   '(line-spacing .2)
   `(fci-rule-color ,fci)))
