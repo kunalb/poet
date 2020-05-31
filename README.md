@@ -1,8 +1,8 @@
 # poet [![MELPA](https://melpa.org/packages/poet-theme-badge.svg)](https://melpa.org/#/poet-theme)
-A light emacs theme that's well suited for prose: particularly org-mode and markdown-mode; or any mode that works well with `variable-pitch` mode.
+An emacs theme that's well suited for prose: particularly org-mode and markdown-mode; or any mode that works well with `variable-pitch` mode.
 
 ## Motivation
-The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. I wrote a  about building poet at https://explog.in/notes/poet.html. For example,
+The main idea behind this was to make Emacs more friendly for writing prose instead of code. Highlights include mixing monospace and variable pitch text in markdown and org-modes, making it convenient to write prose and code together. I wrote about building poet at https://explog.in/notes/poet.html. For example,
 
 <p align="center">
   <img title="Screenshots" alt="Screenshots" src="https://github.com/kunalb/poet/raw/master/images/poet.gif" />
@@ -60,6 +60,7 @@ The main idea behind this was to make Emacs more friendly for writing prose inst
 - [x] Add support for disabling variable font sizes.
 - [ ] Explore a new bolder version of poet.
 - [ ] Document support for additional modes.
+- [ ] Figure out
 - [ ] Publish v3 to Melpa.
 
 ## More Screenshots
