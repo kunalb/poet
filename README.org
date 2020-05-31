@@ -1,5 +1,5 @@
-#+TITLE: poet 
-[[https://melpa.org/#/poet-theme][[[https://melpa.org/packages/poet-theme-badge.svg]]]]
+#+TITLE: poet-theme 
+[[https://melpa.org/#/poet-theme][https://melpa.org/packages/poet-theme-badge.svg]]
 
 An emacs theme that's well suited for prose: particularly org-mode and
 markdown-mode; or any mode that works well with =variable-pitch= mode.
