@@ -1,0 +1,91 @@
+#+TITLE: poet 
+[[https://melpa.org/#/poet-theme][[[https://melpa.org/packages/poet-theme-badge.svg]]]]
+
+An emacs theme that's well suited for prose: particularly org-mode and
+markdown-mode; or any mode that works well with =variable-pitch= mode.
+
+** Motivation
+The theme makes Emacs more friendly for writing prose instead of
+code. Highlights include mixing monospace and variable pitch text in
+markdown and org-modes, making it convenient to write prose and code
+together. 
+
+I wrote about building poet at https://explog.in/notes/poet.html. 
+
+#+BEGIN_HTML
+  <p align="center">
+    <img title="Screenshots" alt="Screenshots" src="https://github.com/kunalb/poet/raw/master/images/poet.gif" />
+  </p>
+#+END_HTML
+
+** Set up
+- *Installation*:
+  - *Melpa*: Make sure [[https://melpa.org/#/getting-started][melpa is in your package archives list]], and M-x =package-install poet-theme=
+  - *Manual*: Download the theme to your =custom-theme-directory= which defaults to =~/emacs.d=.
+
+- *Variable-pitch-mode*: Adding variable pitch mode to text modes will
+  help in rendering mixed fonts every time you edit markdown, org-mode,
+  etc.
+
+#+BEGIN_SRC elisp
+(add-hook 'text-mode-hook
+           (lambda ()
+            (variable-pitch-mode 1)))
+#+END_SRC
+
+- *Custom fonts*: Choose your fonts/font sizes before loading the theme with
+
+#+BEGIN_SRC elisp
+(set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 130)
+(set-face-attribute 'fixed-pitch nil :family "DejaVu Sans Mono")
+(set-face-attribute 'variable-pitch nil :family "IBM Plex Serif")
+#+END_SRC
+
+- *Mac OSX Title Bar*: (Only for *Emacs 26.1*+) 
+#+begin_src elisp
+(add-to-list
+  'default-frame-alist'(ns-transparent-titlebar . t))
+(add-to-list
+  'default-frame-alist'(ns-appearance . light))
+#+end_src
+
+** [[https://www.reddit.com/r/emacs/comments/9e01wf/share_your_modern_emacs/e5lpfmy/][Reddit]] reviews poet
+   :PROPERTIES:
+   :CUSTOM_ID: reddit-reviews-poet
+   :END:
+
+#+CAPTION: Reddit
+[[https://github.com/kunalb/poet/raw/master/images/reddit.png]]
+
+** Warning
+   :PROPERTIES:
+   :CUSTOM_ID: warning
+   :END:
+
+- Exclusively aimed at graphical emacs
+
+** Next Steps
+   :PROPERTIES:
+   :CUSTOM_ID: next-steps
+   :END:
+
+(No fixed timelines for these, depends on my time and motivation) 
+- [X] Publish v1 to Melpa. 
+- [X] Add more screenshots showing off different modes (particularly markdown) 
+- [X] Evaluate & test github flavoured markdown in markdown-mode. 
+- [X] Publish v2 to Melpa 
+- [X] Create a poet-dark mode with a yellow/white/black scheme. 
+- [X] Add a dark brown theme 
+- [X] Add support for disabling variable font sizes. 
+- [ ] Explore a new bolder version of poet. 
+- [ ] Document support for additional modes. 
+- [ ] Publish v3 to Melpa.
+
+** More Screenshots
+   :PROPERTIES:
+   :CUSTOM_ID: more-screenshots
+   :END:
+
+[[https://github.com/kunalb/poet/raw/master/images/org.png]]
+[[https://github.com/kunalb/poet/raw/master/images/md1.png]]
+[[https://github.com/kunalb/poet/raw/master/images/md2.png]]
