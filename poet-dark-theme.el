@@ -82,7 +82,7 @@
   "A prose friendly dark theme")
 
 (let ((fg "#EDE7dd")
-      (bg "#181008")
+      (bg "#111010")
       (emph "#eeeeee")
       (sep "#444444")
       (hlt "#000000")

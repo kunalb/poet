@@ -582,7 +582,7 @@ code would be so much better for this.
 #+NAME: poet-dark-palette
 | Label                     | Color   |
 | fg                        | #EDE7dd |
-| bg                        | #181008 |
+| bg                        | #111010 |
 | emph                      | #eeeeee |
 | sep                       | #444444 |
 | hlt                       | #000000 |
